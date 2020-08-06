@@ -1,0 +1,5 @@
+{
+        "emailOrderStatusUpdates": false,
+        "emailPrescriptionAvailable": false,
+        "emailPrescriptionRenewals": false
+}

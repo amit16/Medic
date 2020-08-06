@@ -1,0 +1,8 @@
+base_url: https://api-qa.medvantxos.com/api/v1.0
+domain: qsymiax
+tenant: medvantx
+user: ErSonal@medvantx.com
+password: test1234
+drug_ndc: '62541020130'
+md_name: 'ANGELA SMITH'
+json_path: '/Users/amit/PycharmProjects/Medic/test_data/'

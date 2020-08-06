@@ -1,0 +1,20 @@
+    {
+        "prescriptionNumber": "15967315",
+        "drugNdc": "62541020130",
+        "drugDisplayName": "QSYMIA 3.75 MG-23 MG CAPSULE",
+        "quantityWritten": "100.0",
+        "quantityRemaining": "98.0",
+        "doctorNpi": "417413",
+        "doctorName": "Joshua Merok",
+        "doctorAddress": "180 N Michigan Ave Smurfit-Stone Bldg",
+        "doctorCity": "Chicago",
+        "doctorState": "IL",
+        "doctorZip": "60601  ",
+        "doctorPhone": "2011230   ",
+        "prescriptionExpirationDate": "Wed Jan 13 07:48:35 UTC 2021",
+        "prescriptionNextRefillDate": "",
+        "prescriptionLastFilledDate": "",
+        "dose": 1,
+        "instructions": "DummySignText",
+        "id": "40c81292-da7f-4021-aab9-60e72e29ab86"
+    }

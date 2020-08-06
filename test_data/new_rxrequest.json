@@ -1,0 +1,17 @@
+{
+    "mdId": "09108260-dd2a-4ac2-922c-6f55f6ffa3fe",
+    "shipToFirstName": "christian",
+    "shipToLastName": "bale",
+    "methodOfShipment": "EXPRESS",
+    "shipToAddress": "Unit 308",
+    "shipToAddress2": "390 elan village lane",
+    "shipToCity": "san jose",
+    "shipToStateCode": "CA",
+    "shipToZipCode": "95314",
+    "requestedDrugs": [
+        {
+            "ndc": "62541020230",
+            "quantity": 2
+        }
+    ]
+}

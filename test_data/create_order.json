@@ -1,0 +1,14 @@
+{
+        "shipToFirstName" : "Jane",
+        "shipToLastName" : "Parker",
+        "methodOfShipment" : "EXPRESS",
+        "shipToAddress" : "Unit 308",
+        "shipToAddress2" : "390 elan village lane",
+        "shipToCity" :		"san jose",
+        "shipToStateCode" : "CA",
+        "shipToZipCode" : "95314",
+        "shippingMethodId" : "8ca1b4ce-2244-4ae0-924b-290a82f85b4e",
+        "orderLine" : [{"prescriptionId" : "40c81292-da7f-4021-aab9-60e72e29ab86",
+           "shippingMethodId" : "8ca1b4ce-2244-4ae0-924b-290a82f85b4e",
+           "qtyOrdered": 2}]
+}

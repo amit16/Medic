@@ -1,0 +1,26 @@
+{
+    "shipToFirstName": "christian",
+    "shipToLastName": "bale",
+    "methodOfShipment": "STANDARD",
+    "shipToAddress": "Unit 308",
+    "shipToAddress2": "390 elan village lane",
+    "shipToCity": "san jose",
+    "shipToStateCode": "CA",
+    "shipToZipCode": "95314",
+    "requestedDrugs": [
+        {
+            "ndc": "62541020130",
+            "quantity": 1
+        }
+    ],
+    "pharmacy": {
+        "pharmacyName": "CVS Pharmacy 3",
+        "pharmacyAddress": "Unit 308",
+        "pharmacyAddress2": "390 elan village lane",
+        "pharmacyAddress3": "Near dream street",
+        "pharmacyStateCode": "NY",
+        "pharmacyZipCode": "400000",
+        "pharmacyPhoneNumber":"123456",
+        "pharmacyFaxNumber":"789212"
+    }
+}
