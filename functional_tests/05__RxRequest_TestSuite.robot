@@ -1,6 +1,8 @@
 *** Settings ***
 Documentation    Patient RxRequest Workflow    This suite contains tescases to verify patient rxrequest workflow
 Resource         ../Resources/common_keywords.robot
+Resource         ../Resources/rx_keywords.robot
+Suite Setup      Create a Payment Card
 
 *** Keywords ***
 Get Shipping Method Id

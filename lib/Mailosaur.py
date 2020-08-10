@@ -24,6 +24,7 @@ class Mailosaur(object):
         summary = " Hello {0}, Thank you for creating a new account! " \
                   "You may now use our handy online tools and in".format(patient_name)
         self.get_email_list(server_id, email_address)
+        logger.info("Email List : {}".format(pp.pformat(self.email_list.items)))
         for email in self.email_list.items:
             logger.info("Comparing emails output : {0}".format(
                 pp.pformat(email.subject)
@@ -36,6 +37,7 @@ class Mailosaur(object):
         summary = " Hello {0}, Verify your email below Please confirm your " \
                   "email address to complete your account".format(patient_name)
         self.get_email_list(server_id, email_address)
+        logger.info("Email List : {}".format(pp.pformat(self.email_list.items)))
         for email in self.email_list.items:
             logger.info("Comparing emails output : {0}".format(
                 pp.pformat(email.subject)

@@ -1,6 +1,8 @@
 *** Settings ***
 Documentation    Patient RxTransfer Workflow    This suite contains tescases to verify patient rxtransfer workflow
 Resource         ../Resources/common_keywords.robot
+Resource         ../Resources/rx_keywords.robot
+Suite Setup      Create a Payment Card
 
 *** Keywords ***
 Get Shipping Method Id
@@ -25,7 +27,7 @@ Build Request Paylod for RxTransferRequest
 Verify Order Amount
     [Arguments]    ${response}
     ${resource_details}=    evaluate    $response.json()
-    ${calculated_OrderAmount} =    set variable    ${90.0}
+    ${calculated_OrderAmount} =    set variable    ${60.0}
     should be equal  ${resource_details["orderAmount"]}  ${calculated_OrderAmount}
 
 *** Test Cases ***

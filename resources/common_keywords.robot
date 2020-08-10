@@ -53,6 +53,21 @@ Verify the Response
     Should Be Equal As Strings    ${response.status_code}    ${resp_status}
     Log    Response body is : ${response.text}
 
+Get Payment Card Id
+    create session  GetcardId  ${Base_URL}
+    ${uri} =  Compose URL  /patient  ${patient_uuid}  cc
+    ${response} =  get request  GetcardId  ${uri}  headers=${HEADER}
+    Verify the Response  ${response}  200
+    ${cc_id}=  Get First Resource ID from List  ${response}
+    return from keyword  ${cc_id}
+
+Add Valid CC Id
+    [Arguments]    ${filename}
+    ${file_data} =  Get File  ${json_path}${filename}
+    ${payload_object}=  Evaluate  json.loads('''${file_data}''')   json
+    ${cc_id}=  Get Payment Card Id
+    set to dictionary  ${payload_object}  ccId=${cc_id}
+    return from keyword  ${payload_object}
 
 Verify the data present in response
     [Arguments]    ${response}    ${resp_data}   ${key}
@@ -73,18 +88,6 @@ Get Medication ID By Name
     ${med_id}=  evaluate  ${item}.get("id")
     return from keyword  ${med_id}
 
-Get MD ID By Name
-    [Arguments]    ${input_md_name}
-    create session  GetMD  ${Base_URL}
-    ${uri} =  Compose URL  /mds
-    ${response} =  get request  GetMD  ${uri}  headers=${HEADER}
-    Verify the Response  ${response}  200
-    FOR  ${item}  IN   @{response.json()}
-    run keyword if   '${item['name']}'=='${input_md_name}'   Exit For Loop
-    END
-    ${md_id}=  evaluate  ${item}.get("id")
-    return from keyword  ${md_id}
-
 Reset Patient Details On Suite Completion
     create session  UpdatePatientDetail  ${Base_URL}
     ${uri} =  Compose URL  /patient  ${patient_uuid}
@@ -101,22 +104,6 @@ Reset Patient Communication Preference
     ${file_object}=  Evaluate  json.loads('''${file_data}''')   json
     ${response} =  put request  UpdateCommunication  ${uri}  data=${file_object}   headers=${HEADER}
     Verify the Response  ${response}  200
-
-Get Payment Card Id
-    create session  GetcardId  ${Base_URL}
-    ${uri} =  Compose URL  /patient  ${patient_uuid}  cc
-    ${response} =  get request  GetcardId  ${uri}  headers=${HEADER}
-    Verify the Response  ${response}  200
-    ${cc_id}=  Get First Resource ID from List  ${response}
-    return from keyword  ${cc_id}
-
-Add Valid CC Id
-    [Arguments]    ${filename}
-    ${file_data} =  Get File  ${json_path}${filename}
-    ${payload_object}=  Evaluate  json.loads('''${file_data}''')   json
-    ${cc_id}=  Get Payment Card Id
-    set to dictionary  ${payload_object}  ccId=${cc_id}
-    return from keyword  ${payload_object}
 
 Get Resource ID
     [Arguments]    ${response}
@@ -135,12 +122,3 @@ Verify the Response is a List
     ${response_list}=    evaluate    $response.json()
     ${status}=  check response type  ${response_list}  list
     should be true  ${status}
-
-Set New Patient Login Details
-    [Arguments]    ${NEW_PATIENT_HEADER}
-    set global variable  ${NEW_PATIENT_HEADER}  ${NEW_PATIENT_HEADER}
-    create session  GetPatient  ${Base_URL}
-    ${response} =  get request  GetPatient  /profile  headers=${NEW_PATIENT_HEADER}
-    Verify the Response  ${response}  200
-    ${new_patient_uuid} =    evaluate    $response.json().get("id")
-    set global variable  ${new_patient_uuid}  ${new_patient_uuid}

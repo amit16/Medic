@@ -4,6 +4,6 @@ tenant: medvantx
 user: ErSonal@medvantx.com
 password: test1234
 drug_ndc_rxrequest: '62541020130'
-drug_ndc_rxtransfer: '545667'
+drug_ndc_rxtransfer: '6254120316'
 md_name: 'ANGELA SMITH'
 json_path: '/Users/amit/PycharmProjects/Medic/test_data/'
