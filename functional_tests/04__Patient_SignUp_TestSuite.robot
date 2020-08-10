@@ -6,26 +6,25 @@ Library           ../lib/Mailosaur.py        Cw0bnKbM9HcGDOA
 
 *** Variables ***
 ${SERVER_ID}                    rc2y5mmp
-${NEW_PASSWORD}                 test1234
-${RANDOM_EMAIL}                 8VMMVIZFQE.rc2y5mmp@mailosaur.io
-${new_patient_name}             AutoQAWU
+${RANDOM_EMAIL}                 94HODFXKC8.rc2y5mmp@mailosaur.io
+${new_patient_name}             AutoQAHE
 
 *** Keywords ***
 Build Patient Signup Request
     [Arguments]    ${filename}
     ${file_object} =  Get File  ${json_path}${filename}
     ${file_data}=  Evaluate  json.loads('''${file_object}''')   json
-    ${RANDOM_EMAIL}=   Generate Email Address  ${SERVER ID}
-    set suite variable  ${RANDOM_EMAIL}
-    ${new_patient_name}=  random patient name
-    set suite variable  ${new_patient_name}
+    #${RANDOM_EMAIL}=   Generate Email Address  ${SERVER ID}
+    #set suite variable  ${RANDOM_EMAIL}
+    #${new_patient_name}=  random patient name
+    #set suite variable  ${new_patient_name}
     ${date_of_birth}=  random birth date
     set to dictionary   ${file_data}  firstName=${new_patient_name}  email=${RANDOM_EMAIL}  dateOfBirth=${date_of_birth}
     return from keyword  ${file_data}
 
 New Patient Should be Signed In
     create session  GetToken  ${Base_URL}
-    ${body} =  create dictionary  username=${RANDOM_EMAIL}  password=${NEW_PASSWORD}
+    ${body} =  create dictionary  username=${RANDOM_EMAIL}  password=${PASSWORD}
     ${headers} =  create dictionary   Content-Type=application/json
     ${response} =  post request  GetToken  /signin  data=${body}  headers=${headers}
     Should be equal as strings  ${response.status_code}  200
@@ -33,31 +32,30 @@ New Patient Should be Signed In
     should not be empty  ${accessToken}
     ${HEADER} =  create dictionary  Authorization=Bearer ${accessToken}  Content-Type=application/json
     set suite variable  ${HEADER}  ${HEADER}
-    Set New Patient Login Details  ${RANDOM_EMAIL}  ${NEW_PASSWORD}  ${HEADER}
+    Set New Patient Login Details  ${HEADER}
 
 *** Test Cases ***
-TC_001 : [POST] Verify New Patient SignUp
-    [Tags]  sanity
-    create session  NewPatientSignup  ${Base_URL}
-    ${uri} =  Compose URL  /signup
-    ${input_data}=  Build Patient Signup Request  new_patient_signup.json
-    ${headers} =  create dictionary   Content-Type=application/json
-    ${response} =  post request  NewPatientSignup  ${uri}  data=${input_data}  headers=${headers}
-    Verify the Response  ${response}  200
-    ${welcome_email}=  Check Welcome Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
-    should be true  ${welcome_email}
-    sleep  30s
-    ${verify_email}=  Check Verify Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
-    should be true  ${verify_email}
-
-TC_002 : [GET] Verify email for newly Signed Up Patient
-    [Tags]  sanity
-    ${token}=  Get Verification Token  ${SERVER ID}    ${RANDOM_EMAIL}
-    create session  VerifyEmail  ${Base_URL}
-    ${uri} =  Compose URL  /email  verify?otc=${token}
-    ${response}=  get request  VerifyEmail  ${uri}
-    Verify the Response  ${response}  200
-    log to console  ${response}
+#TC_001 : [POST] Verify New Patient SignUp
+#    [Tags]  sanity
+#    create session  NewPatientSignup  ${Base_URL}
+#    ${uri} =  Compose URL  /signup
+#    ${input_data}=  Build Patient Signup Request  new_patient_signup.json
+#    ${headers} =  create dictionary   Content-Type=application/json
+#    ${response} =  post request  NewPatientSignup  ${uri}  data=${input_data}  headers=${headers}
+#    Verify the Response  ${response}  200
+#    ${welcome_email}=  Check Welcome Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
+#    should be true  ${welcome_email}
+#    sleep  30s
+#    ${verify_email}=  Check Verify Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
+#    should be true  ${verify_email}
+#
+#TC_002 : [GET] Verify email for newly Signed Up Patient
+#    [Tags]  sanity
+#    ${token}=  Get Verification Token  ${SERVER ID}    ${RANDOM_EMAIL}
+#    create session  VerifyEmail  ${Base_URL}
+#    ${uri} =  Compose URL  /email  verify?otc=${token}
+#    ${response}=  get request  VerifyEmail  ${uri}
+#    Verify the Response  ${response}  200
 
 TC_003 : [POST] Re-Sent Verify email for newly Signed Up Patient
     [Tags]  sanity
@@ -71,4 +69,3 @@ TC_003 : [POST] Re-Sent Verify email for newly Signed Up Patient
     ${verify_email}=  Check Verify Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
     should be true  ${verify_email}
 
-TC_004 : [POST] Update Password for Patient with Patient Logged In.

@@ -1,5 +1,8 @@
 from mailosaur import MailosaurClient
 from mailosaur.models import SearchCriteria
+from robot.api import logger
+import pprint
+pp = pprint.PrettyPrinter(indent=4)
 
 
 class Mailosaur(object):
@@ -15,12 +18,16 @@ class Mailosaur(object):
         criteria = SearchCriteria()
         criteria.sent_to = email_address
         self.email_list = self.client.messages.search(server=server_id, criteria=criteria, timeout=100000)
+        logger.info("Email list found")
 
     def check_welcome_email(self, server_id, email_address, patient_name):
         summary = " Hello {0}, Thank you for creating a new account! " \
                   "You may now use our handy online tools and in".format(patient_name)
         self.get_email_list(server_id, email_address)
         for email in self.email_list.items:
+            logger.info("Comparing emails output : {0}".format(
+                pp.pformat(email.subject)
+            ))
             if email.subject == "Wecome To Medvantx" and summary in email.summary:
                 return True
         return False
@@ -30,13 +37,20 @@ class Mailosaur(object):
                   "email address to complete your account".format(patient_name)
         self.get_email_list(server_id, email_address)
         for email in self.email_list.items:
+            logger.info("Comparing emails output : {0}".format(
+                pp.pformat(email.subject)
+            ))
             if email.subject == "Verify your email address" and summary in email.summary:
                 return True
         return False
 
     def get_verification_token(self, server_id, email_address):
+        message_id = None
         self.get_email_list(server_id, email_address)
         for email in self.email_list.items:
+            logger.info("Comparing emails output : {0}".format(
+                pp.pformat(email.subject)
+            ))
             if email.subject == "Verify your email address":
                 message_id = email.id
         if not message_id:

@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation    Patient RxTransfer Workflow    This suite contains tescases to verify patient rxtransfer workflow
 Resource         ../Resources/common_keywords.robot
-Suite Setup      Patient Should be able to Signin
 
 *** Keywords ***
 Get Shipping Method Id
@@ -33,9 +32,9 @@ Verify Order Amount
 TC_001 : [POST] Create a New RxTransfer Request for a Patient
     [Tags]  sanity
     create session  NewRxTransfer  ${Base_URL}
-    ${uri} =  Compose URL  /patient  ${patient_uuid}  rxtransfer
+    ${uri} =  Compose URL  /patient  ${new_patient_uuid}  rxtransfer
     ${input_data}=  Build Request Paylod for RxTransferRequest  new_rxtransfer.json
-    ${response} =  post request  NewRxTransfer  ${uri}  data=${input_data}   headers=${HEADER}
+    ${response} =  post request  NewRxTransfer  ${uri}  data=${input_data}   headers=${NEW_PATIENT_HEADER}
     Verify the Response  ${response}  200
     Verify Order Amount  ${response}
     ${rxtransfer_id}=  Get Resource ID    ${response}
@@ -46,8 +45,8 @@ TC_001 : [POST] Create a New RxTransfer Request for a Patient
 TC_002 : [GET] Get Specific RxTranfer Request
     [Tags]  sanity
     create session  GetRxTransfer   ${Base_URL}
-    ${uri} =  Compose URL  /patient  ${patient_uuid}  rxtransfer  ${rxtransfer_id}
-    ${response} =  get request  GetRxTransfer  ${uri}  headers=${HEADER}
+    ${uri} =  Compose URL  /patient  ${new_patient_uuid}  rxtransfer  ${rxtransfer_id}
+    ${response} =  get request  GetRxTransfer  ${uri}  headers=${NEW_PATIENT_HEADER}
     Verify the Response  ${response}  200
     ${requestedDrugs_list} =    evaluate    $response.json().get("requestedDrugs")
     should not be empty  ${requestedDrugs_list}
@@ -57,17 +56,17 @@ TC_002 : [GET] Get Specific RxTranfer Request
 TC_003 : [GET] Get All RxTranfer Request
     [Tags]  sanity
     create session  GetAllRxTransfer   ${Base_URL}
-    ${uri} =  Compose URL  /patient  ${patient_uuid}  rxtransfers
-    ${response} =  get request  GetAllRxTransfer  ${uri}  headers=${HEADER}
+    ${uri} =  Compose URL  /patient  ${new_patient_uuid}  rxtransfers
+    ${response} =  get request  GetAllRxTransfer  ${uri}  headers=${NEW_PATIENT_HEADER}
     Verify the Response  ${response}  200
     Verify the Response is a List  ${response}
 
 TC_004 : [POST] Create a New RxTransfer Transaction for a Patient
     [Tags]  sanity
     create session  NewRxTransferTrans  ${Base_URL}
-    ${uri} =  Compose URL  /patient  ${patient_uuid}  rxtransfer  ${rxtransfer_id}  transaction
+    ${uri} =  Compose URL  /patient  ${new_patient_uuid}  rxtransfer  ${rxtransfer_id}  transaction
     ${input_data}=  Add Valid CC Id   rxtransfer_transaction.json
-    ${response} =  post request  NewRxTransferTrans  ${uri}  data=${input_data}   headers=${HEADER}
+    ${response} =  post request  NewRxTransferTrans  ${uri}  data=${input_data}   headers=${NEW_PATIENT_HEADER}
     Verify the Response  ${response}  200
     ${rxtransfer_tran_id}=  Get Resource ID    ${response}
     should not be empty  ${rxtransfer_tran_id}
@@ -76,8 +75,8 @@ TC_004 : [POST] Create a New RxTransfer Transaction for a Patient
 TC_005 : [GET] Get Specific RxTranfer Transactions
     [Tags]  sanity
     create session  GetRxTransferTrans   ${Base_URL}
-    ${uri} =  Compose URL  /patient  ${patient_uuid}  rxtransfer  ${rxtransfer_id}  transaction  ${rxtransfer_tran_id}
-    ${response} =  get request  GetRxTransferTrans  ${uri}  headers=${HEADER}
+    ${uri} =  Compose URL  /patient  ${new_patient_uuid}  rxtransfer  ${rxtransfer_id}  transaction  ${rxtransfer_tran_id}
+    ${response} =  get request  GetRxTransferTrans  ${uri}  headers=${NEW_PATIENT_HEADER}
     Verify the Response  ${response}  200
     ${trans_status}=    evaluate    $response.json()
     should be equal as strings  ${trans_status["orderType"]}   RX_TRANSFER
@@ -85,17 +84,17 @@ TC_005 : [GET] Get Specific RxTranfer Transactions
 TC_006 : [GET] Get All RxTranfer Transactions
     [Tags]  sanity
     create session  GetAllRxTransferTrans  ${Base_URL}
-    ${uri} =  Compose URL  /patient  ${patient_uuid}  rxtransfer  ${rxtransfer_id}  transactions
-    ${response} =  get request  GetAllRxTransferTrans  ${uri}  headers=${HEADER}
+    ${uri} =  Compose URL  /patient  ${new_patient_uuid}  rxtransfer  ${rxtransfer_id}  transactions
+    ${response} =  get request  GetAllRxTransferTrans  ${uri}  headers=${NEW_PATIENT_HEADER}
     Verify the Response  ${response}  200
     Verify the Response is a List  ${response}
 
 TC_007 : [POST] Submit a New RxTransfer for a Patient
     [Tags]  sanity
     create session  NewRxTransferSubmit  ${Base_URL}
-    ${uri} =  Compose URL  /patient  ${patient_uuid}  rxtransfer  ${rxtransfer_id}  submit
+    ${uri} =  Compose URL  /patient  ${new_patient_uuid}  rxtransfer  ${rxtransfer_id}  submit
     ${input_data} =  create dictionary  transUuid  ${rxtransfer_tran_id}
-    ${response} =  post request  NewRxTransferSubmit  ${uri}  data=${input_data}   headers=${HEADER}
+    ${response} =  post request  NewRxTransferSubmit  ${uri}  data=${input_data}   headers=${NEW_PATIENT_HEADER}
     Verify the Response  ${response}  200
     Verify Order Amount  ${response}
     ${rxtransfer_sucess}=    evaluate    $response.json()
