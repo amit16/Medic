@@ -18,7 +18,7 @@ Build Request Paylod for RxTransferRequest
     ${payload_object}=  Evaluate  json.loads('''${file_data}''')   json
     ${requestedDrugs}=  create list
     ${shipping_id}=  Get Shipping Method Id
-    ${requestedDrugs_item}=  create dictionary  ndc  ${drug_ndc}  shippingMethodId  ${shipping_id}  quantity  ${2}
+    ${requestedDrugs_item}=  create dictionary  ndc  ${drug_ndc_rxtransfer}  shippingMethodId  ${shipping_id}  quantity  ${2}
     append to list  ${requestedDrugs}  ${requestedDrugs_item}
     set to dictionary  ${payload_object}  requestedDrugs=${requestedDrugs}
     return from keyword  ${payload_object}
@@ -26,7 +26,7 @@ Build Request Paylod for RxTransferRequest
 Verify Order Amount
     [Arguments]    ${response}
     ${resource_details}=    evaluate    $response.json()
-    ${calculated_OrderAmount} =    set variable    ${110.0}
+    ${calculated_OrderAmount} =    set variable    ${90.0}
     should be equal  ${resource_details["orderAmount"]}  ${calculated_OrderAmount}
 
 *** Test Cases ***

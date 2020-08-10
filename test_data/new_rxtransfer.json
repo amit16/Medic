@@ -10,7 +10,7 @@
     "requestedDrugs": [
         {
             "ndc": "62541020130",
-            "quantity": 1
+            "quantity": 2
         }
     ],
     "pharmacy": {

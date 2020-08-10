@@ -11,7 +11,7 @@ Variables        ../Resources/config.yaml
 *** Keywords ***
 Patient Should be able to Signin
     create session  GetToken  ${Base_URL}
-    ${body} =  create dictionary  username=${USER}  password=${PASSWORD}  domain=${DOMAIN}
+    ${body} =  create dictionary  username=${USER}  password=${PASSWORD}
     ${headers} =  create dictionary   Content-Type=application/json
     ${response} =  post request  GetToken  /signin  data=${body}  headers=${headers}
     Should be equal as strings  ${response.status_code}  200
@@ -135,3 +135,12 @@ Verify the Response is a List
     ${response_list}=    evaluate    $response.json()
     ${status}=  check response type  ${response_list}  list
     should be true  ${status}
+
+Set New Patient Login Details
+    [Arguments]    ${NEW_PATIENT_HEADER}
+    set global variable  ${NEW_PATIENT_HEADER}  ${NEW_PATIENT_HEADER}
+    create session  GetPatient  ${Base_URL}
+    ${response} =  get request  GetPatient  /profile  headers=${NEW_PATIENT_HEADER}
+    Verify the Response  ${response}  200
+    ${new_patient_uuid} =    evaluate    $response.json().get("id")
+    set global variable  ${new_patient_uuid}  ${new_patient_uuid}

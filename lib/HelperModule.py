@@ -1,11 +1,12 @@
 #! /usr/bin/env python
+import datetime, time
+import random
 from collections import OrderedDict
 from deepdiff import DeepDiff
 import collections
 from robot.api import logger
 import pprint
 import string
-import random
 pp = pprint.PrettyPrinter(indent=4)
 
 def convert_unicode_to_string(data):
@@ -163,6 +164,7 @@ def key_exist(d1, compare_keys):
                 return False
     return True
 
+
 def random_billing_id(length_of_string=5):
     """
     Generates a random five-digit number
@@ -170,6 +172,22 @@ def random_billing_id(length_of_string=5):
     N = length_of_string
     billing_id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=N))
     return billing_id
+
+
+def random_patient_name():
+    """Generates a randome name"""
+    rand_str = ''.join(random.choices(string.ascii_uppercase, k=2))
+    return 'AutoQA' + rand_str
+
+
+def year_start(year):
+    return time.mktime(datetime.date(year, 1, 1).timetuple())
+
+
+def random_birth_date(year=1985):
+    """Generates a randome date between 1985 to 1995"""
+    stamp = random.randrange(year_start(year), year_start(year + 10))
+    return datetime.date.fromtimestamp(stamp).strftime('%d-%m-%Y')
 
 
 def check_response_type(data, expected_type):

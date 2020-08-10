@@ -19,7 +19,7 @@ Build Request Paylod for RxRequest
     ${requestedDrugs}=  create list
     ${shipping_id}=  Get Shipping Method Id
     ${md_id}=  Get MD ID By Name  ${MD_NAME}
-    ${requestedDrugs_item}=  create dictionary  ndc  ${drug_ndc}  shippingMethodId  ${shipping_id}  quantity  ${2}
+    ${requestedDrugs_item}=  create dictionary  ndc  ${drug_ndc_rxrequest}  shippingMethodId  ${shipping_id}  quantity  ${2}
     append to list  ${requestedDrugs}  ${requestedDrugs_item}
     set to dictionary  ${payload_object}  requestedDrugs=${requestedDrugs}
     set to dictionary  ${payload_object}  mdId=${md_id}

@@ -25,7 +25,7 @@ Verify Precription Details
 Get Prescription ID By Drug NDC
     [Arguments]    ${prescription_list_response}
     FOR  ${file_prescription}  IN   @{prescription_list_response.json()}
-    run keyword if   '${file_prescription['drugNdc']}'=='${drug_ndc}'   Exit For Loop
+    run keyword if   '${file_prescription['drugNdc']}'=='${drug_ndc_rxrequest}'   Exit For Loop
     END
     set suite variable  ${file_prescription}
     ${pres_id}=  evaluate  ${file_prescription}.get("id")
