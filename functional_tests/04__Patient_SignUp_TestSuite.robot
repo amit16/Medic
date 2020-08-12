@@ -7,8 +7,8 @@ Library           ../lib/Mailosaur.py        Cw0bnKbM9HcGDOA
 
 *** Variables ***
 ${SERVER_ID}                    rc2y5mmp
-#${RANDOM_EMAIL}                 94HODFXKC8.rc2y5mmp@mailosaur.io
-#${new_patient_name}             AutoQAHE
+#${RANDOM_EMAIL}                 IH3EKVYPEZ.rc2y5mmp@mailosaur.io
+#${new_patient_name}             AutoQAHZ
 
 *** Keywords ***
 Build Patient Signup Request
@@ -25,7 +25,7 @@ Build Patient Signup Request
 
 New Patient Should be Signed In
     create session  GetToken  ${Base_URL}
-    ${body} =  create dictionary  username=${RANDOM_EMAIL}  password=${PASSWORD}
+    ${body} =  create dictionary  username=${RANDOM_EMAIL}  password=Test1234
     ${headers} =  create dictionary   Content-Type=application/json
     ${response} =  post request  GetToken  /signin  data=${body}  headers=${headers}
     Should be equal as strings  ${response.status_code}  200
@@ -41,7 +41,7 @@ TC_001 : [POST] Verify New Patient SignUp
     create session  NewPatientSignup  ${Base_URL}
     ${uri} =  Compose URL  /signup
     ${input_data}=  Build Patient Signup Request  new_patient_signup.json
-    ${headers} =  create dictionary   Content-Type=application/json
+    ${headers} =  create dictionary   Content-Type=application/json   origin=https://api-qa.medvantxos.com
     ${response} =  post request  NewPatientSignup  ${uri}  data=${input_data}  headers=${headers}
     Verify the Response  ${response}  200
     sleep  30s

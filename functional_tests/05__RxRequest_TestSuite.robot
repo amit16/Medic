@@ -77,7 +77,7 @@ TC_004 : [POST] Create a New Pre-Order Transaction for a Patient
     [Tags]  sanity
     create session  NewPreOrderTrans  ${Base_URL}
     ${uri} =  Compose URL  /patient  ${new_patient_uuid}  rxrequest  ${rxrequest_id}  transaction
-    ${input_data}=  Add Valid CC Id   preorder_transaction.json
+    ${input_data}=  Add Valid CC Id for New Patient   preorder_transaction.json
     ${response_data}=  Add Order Amount  ${input_data}
     ${response} =  post request  NewPreOrderTrans  ${uri}  data=${response_data}   headers=${NEW_PATIENT_HEADER}
     Verify the Response  ${response}  200

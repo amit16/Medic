@@ -67,7 +67,7 @@ TC_004 : [POST] Create a New RxTransfer Transaction for a Patient
     [Tags]  sanity
     create session  NewRxTransferTrans  ${Base_URL}
     ${uri} =  Compose URL  /patient  ${new_patient_uuid}  rxtransfer  ${rxtransfer_id}  transaction
-    ${input_data}=  Add Valid CC Id   rxtransfer_transaction.json
+    ${input_data}=  Add Valid CC Id for New Patient   rxtransfer_transaction.json
     ${response} =  post request  NewRxTransferTrans  ${uri}  data=${input_data}   headers=${NEW_PATIENT_HEADER}
     Verify the Response  ${response}  200
     ${rxtransfer_tran_id}=  Get Resource ID    ${response}

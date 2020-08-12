@@ -16,11 +16,10 @@
     "pharmacy": {
         "pharmacyName": "CVS Pharmacy 3",
         "pharmacyAddress": "Unit 308",
-        "pharmacyAddress2": "390 elan village lane",
-        "pharmacyAddress3": "Near dream street",
         "pharmacyStateCode": "NY",
-        "pharmacyZipCode": "400000",
-        "pharmacyPhoneNumber":"123456",
-        "pharmacyFaxNumber":"789212"
+        "pharmacyCity": "NewYork",
+        "pharmacyZipCode": "60611",
+        "pharmacyPhoneNumber":"12345",
+        "pharmacyFaxNumber":"67891"
     }
 }

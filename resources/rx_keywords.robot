@@ -34,7 +34,7 @@ Create a Payment Card
     ${cc_id}=  Get Resource ID    ${response}
     return from keyword  ${cc_id}
 
-Get Payment Card Id
+Get Payment Card Id for New Patient
     create session  GetcardId  ${Base_URL}
     ${uri} =  Compose URL  /patient  ${new_patient_uuid}  cc
     ${response} =  get request  GetcardId  ${uri}  headers=${NEW_PATIENT_HEADER}
@@ -42,11 +42,11 @@ Get Payment Card Id
     ${cc_id}=  Get First Resource ID from List  ${response}
     return from keyword  ${cc_id}
 
-Add Valid CC Id
+Add Valid CC Id for New Patient
     [Arguments]    ${filename}
     ${file_data} =  Get File  ${json_path}${filename}
     ${payload_object}=  Evaluate  json.loads('''${file_data}''')   json
-    ${cc_id}=  Get Payment Card Id
+    ${cc_id}=  Get Payment Card Id for New Patient
     set to dictionary  ${payload_object}  ccId=${cc_id}
     return from keyword  ${payload_object}
 
