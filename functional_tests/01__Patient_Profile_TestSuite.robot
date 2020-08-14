@@ -4,6 +4,7 @@ Library          RequestsLibrary
 Library          OperatingSystem
 Resource         ../Resources/common_keywords.robot
 Suite Teardown   Reset Patient Details On Suite Completion
+Force Tags       PatientProfile
 
 *** Keywords ***
 Get Data from file

@@ -3,6 +3,7 @@ Documentation    Patient RxTransfer Workflow    This suite contains tescases to 
 Resource         ../Resources/common_keywords.robot
 Resource         ../Resources/rx_keywords.robot
 Suite Setup      Create a Payment Card
+Force Tags       PatientRxTransfer
 
 *** Keywords ***
 Get Shipping Method Id

@@ -2,8 +2,8 @@
 Documentation    Patient SignUp Workflow    This suite contains tescases to verify patient signup and email verificatiom workflow
 Resource         ../Resources/common_keywords.robot
 Resource         ../Resources/rx_keywords.robot
-
 Library           ../lib/Mailosaur.py        Cw0bnKbM9HcGDOA
+Force Tags       PatientSignUp
 
 *** Variables ***
 ${SERVER_ID}                    rc2y5mmp
