@@ -44,7 +44,7 @@ TC_001 : [POST] Verify New Patient SignUp
     ${headers} =  create dictionary   Content-Type=application/json   origin=https://api-qa.medvantxos.com
     ${response} =  post request  NewPatientSignup  ${uri}  data=${input_data}  headers=${headers}
     Verify the Response  ${response}  200
-    sleep  30s
+    sleep  60s
     ${welcome_email}=  Check Welcome Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
     should be true  ${welcome_email}
     ${verify_email}=  Check Verify Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
