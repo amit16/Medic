@@ -2,6 +2,7 @@ from mailosaur import MailosaurClient
 from mailosaur.models import SearchCriteria
 from robot.api import logger
 import pprint
+import time
 pp = pprint.PrettyPrinter(indent=4)
 
 
@@ -36,19 +37,32 @@ class Mailosaur(object):
     def check_verify_email(self, server_id, email_address, patient_name):
         summary = " Hello {0}, Verify your email below Please confirm your " \
                   "email address to complete your account".format(patient_name)
-        self.get_email_list(server_id, email_address)
-        logger.info("Email List : {}".format(pp.pformat(self.email_list.items)))
+        wait = 60
+        while wait:
+            self.get_email_list(server_id, email_address)
+            logger.info("Email List : {}".format(pp.pformat(self.email_list.items)))
+            if len(self.email_list.items) > 1:
+                break
+            wait = wait - 1
+            time.sleep(2)
+
         for email in self.email_list.items:
-            logger.info("Comparing emails output : {0}".format(
-                pp.pformat(email.subject)
-            ))
+            logger.info("Comparing emails subject : {0} - {1}".format(
+                email.subject, email.summary))
             if email.subject == "Verify your email address" and summary in email.summary:
                 return True
         return False
 
     def get_verification_token(self, server_id, email_address):
         message_id = None
-        self.get_email_list(server_id, email_address)
+        wait = 60
+        while wait:
+            self.get_email_list(server_id, email_address)
+            logger.info("Email List : {}".format(pp.pformat(self.email_list.items)))
+            if len(self.email_list.items) > 2:
+                break
+            wait = wait - 1
+            time.sleep(2)
         for email in self.email_list.items:
             logger.info("Comparing emails output : {0}".format(
                 pp.pformat(email.subject)

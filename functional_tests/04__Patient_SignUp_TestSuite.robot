@@ -7,8 +7,8 @@ Force Tags       PatientSignUp
 
 *** Variables ***
 ${SERVER_ID}                    rc2y5mmp
-#${RANDOM_EMAIL}                 IH3EKVYPEZ.rc2y5mmp@mailosaur.io
-#${new_patient_name}             AutoQAHZ
+#${RANDOM_EMAIL}                 TS79Q7D5W0.rc2y5mmp@mailosaur.io
+#${new_patient_name}             AutoQAKS
 
 *** Keywords ***
 Build Patient Signup Request
@@ -44,7 +44,6 @@ TC_001 : [POST] Verify New Patient SignUp
     ${headers} =  create dictionary   Content-Type=application/json   origin=https://api-qa.medvantxos.com
     ${response} =  post request  NewPatientSignup  ${uri}  data=${input_data}  headers=${headers}
     Verify the Response  ${response}  200
-    sleep  60s
     ${welcome_email}=  Check Welcome Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
     should be true  ${welcome_email}
     ${verify_email}=  Check Verify Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
@@ -66,7 +65,8 @@ TC_003 : [POST] Re-Sent Verify email for newly Signed Up Patient
     ${response}=  post request  ReSentVerifyEmail  ${uri}  headers=${HEADER}
     Verify the Response  ${response}  202
     log to console  ${response}
-    sleep  30s
     ${verify_email}=  Check Verify Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
     should be true  ${verify_email}
+
+
 

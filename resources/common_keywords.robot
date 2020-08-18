@@ -22,6 +22,18 @@ Patient Should be able to Signin
     set global variable  ${HEADER}  ${HEADER}
     run keyword  Patient Should have a valid patient uuid
 
+SuperUser Should be able to Signin
+    create session  GetToken  ${Base_URL}
+    ${body} =  create dictionary  username=${SUPERUSER}  password=${SUPERUSER_PASSWORD}
+    ${headers} =  create dictionary   Content-Type=application/json
+    ${response} =  post request  GetToken  /signin  data=${body}  headers=${headers}
+    Should be equal as strings  ${response.status_code}  200
+    ${accessToken} =    evaluate    $response.json().get("access_token")
+    should not be empty  ${accessToken}
+    set global variable  ${accessToken}  ${accessToken}
+    ${SUPER_HEADER} =  create dictionary  Authorization=Bearer ${accessToken}  Content-Type=application/json
+    set global variable  ${SUPER_HEADER}  ${SUPER_HEADER}
+
 Patient Should have a valid patient uuid
     create session  GetPatient  ${Base_URL}
     ${response} =  get request  GetPatient  /profile  headers=${HEADER}
