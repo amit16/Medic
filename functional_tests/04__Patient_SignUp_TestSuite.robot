@@ -2,12 +2,13 @@
 Documentation    Patient SignUp Workflow    This suite contains tescases to verify patient signup and email verificatiom workflow
 Resource         ../Resources/common_keywords.robot
 Resource         ../Resources/rx_keywords.robot
-Library           ../lib/Mailosaur.py        Cw0bnKbM9HcGDOA
+#Library           ../lib/Mailosaur.py        Cw0bnKbM9HcGDOA
+Library          ../lib/Mail.py
 Force Tags       PatientSignUp
 
 *** Variables ***
-${SERVER_ID}                    rc2y5mmp
-#${RANDOM_EMAIL}                 TS79Q7D5W0.rc2y5mmp@mailosaur.io
+#${SERVER_ID}                    rc2y5mmp
+#${RANDOM_EMAIL}                 test-qa@mailosaur.io
 #${new_patient_name}             AutoQAKS
 
 *** Keywords ***
@@ -15,7 +16,7 @@ Build Patient Signup Request
     [Arguments]    ${filename}
     ${file_object} =  Get File  ${json_path}${filename}
     ${file_data}=  Evaluate  json.loads('''${file_object}''')   json
-    ${RANDOM_EMAIL}=   Generate Email Address  ${SERVER ID}
+    ${RANDOM_EMAIL}=   generate random emails
     set suite variable  ${RANDOM_EMAIL}
     ${new_patient_name}=  random patient name
     set suite variable  ${new_patient_name}
@@ -44,29 +45,30 @@ TC_001 : [POST] Verify New Patient SignUp
     ${headers} =  create dictionary   Content-Type=application/json   origin=https://api-qa.medvantxos.com
     ${response} =  post request  NewPatientSignup  ${uri}  data=${input_data}  headers=${headers}
     Verify the Response  ${response}  200
-    ${welcome_email}=  Check Welcome Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
-    should be true  ${welcome_email}
-    ${verify_email}=  Check Verify Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
-    should be true  ${verify_email}
-
-TC_002 : [GET] Verify email for newly Signed Up Patient
-    [Tags]  sanity
-    ${token}=  Get Verification Token  ${SERVER ID}    ${RANDOM_EMAIL}
-    create session  VerifyEmail  ${Base_URL}
-    ${uri} =  Compose URL  /email  verify?otc=${token}
-    ${response}=  get request  VerifyEmail  ${uri}
-    Verify the Response  ${response}  200
-
-TC_003 : [POST] Re-Sent Verify email for newly Signed Up Patient
-    [Tags]  sanity
+#    ${welcome_email}=  Check Welcome Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
+#    should be true  ${welcome_email}
+#    ${verify_email}=  Check Verify Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
+#    should be true  ${verify_email}
     New Patient Should be Signed In
-    create session  ReSentVerifyEmail  ${Base_URL}
-    ${uri} =  Compose URL  /email  resend-verify-token
-    ${response}=  post request  ReSentVerifyEmail  ${uri}  headers=${HEADER}
-    Verify the Response  ${response}  202
-    log to console  ${response}
-    ${verify_email}=  Check Verify Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
-    should be true  ${verify_email}
+
+#TC_002 : [GET] Verify email for newly Signed Up Patient
+#    [Tags]  sanity
+#    ${token}=  Get Verification Token  ${SERVER ID}    ${RANDOM_EMAIL}
+#    create session  VerifyEmail  ${Base_URL}
+#    ${uri} =  Compose URL  /email  verify?otc=${token}
+#    ${response}=  get request  VerifyEmail  ${uri}
+#    Verify the Response  ${response}  200
+#
+#TC_003 : [POST] Re-Sent Verify email for newly Signed Up Patient
+#    [Tags]  sanity
+#    New Patient Should be Signed In
+#    create session  ReSentVerifyEmail  ${Base_URL}
+#    ${uri} =  Compose URL  /email  resend-verify-token
+#    ${response}=  post request  ReSentVerifyEmail  ${uri}  headers=${HEADER}
+#    Verify the Response  ${response}  202
+#    log to console  ${response}
+#    ${verify_email}=  Check Verify Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
+#    should be true  ${verify_email}
 
 
 
