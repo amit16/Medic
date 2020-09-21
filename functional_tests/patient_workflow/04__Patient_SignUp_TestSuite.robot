@@ -1,14 +1,14 @@
 *** Settings ***
 Documentation    Patient SignUp Workflow    This suite contains tescases to verify patient signup and email verificatiom workflow
-Resource         ../Resources/common_keywords.robot
-Resource         ../Resources/rx_keywords.robot
+Resource         ../../Resources/common_keywords.robot
+Resource         ../../Resources/rx_keywords.robot
 #Library           ../lib/Mailosaur.py        Cw0bnKbM9HcGDOA
 Library          ../lib/Mail.py
 Force Tags       PatientSignUp
 
 *** Variables ***
 #${SERVER_ID}                    rc2y5mmp
-#${RANDOM_EMAIL}                 test-qa@mailosaur.io
+${RANDOM_EMAIL}                 tisehok418@stevefotos.com
 #${new_patient_name}             AutoQAKS
 
 *** Keywords ***
@@ -16,7 +16,7 @@ Build Patient Signup Request
     [Arguments]    ${filename}
     ${file_object} =  Get File  ${json_path}${filename}
     ${file_data}=  Evaluate  json.loads('''${file_object}''')   json
-    ${RANDOM_EMAIL}=   generate random emails
+    #${RANDOM_EMAIL}=   generate random emails
     set suite variable  ${RANDOM_EMAIL}
     ${new_patient_name}=  random patient name
     set suite variable  ${new_patient_name}
@@ -39,12 +39,12 @@ New Patient Should be Signed In
 *** Test Cases ***
 TC_001 : [POST] Verify New Patient SignUp
     [Tags]  sanity
-    create session  NewPatientSignup  ${Base_URL}
-    ${uri} =  Compose URL  /signup
-    ${input_data}=  Build Patient Signup Request  new_patient_signup.json
-    ${headers} =  create dictionary   Content-Type=application/json   origin=https://api-qa.medvantxos.com
-    ${response} =  post request  NewPatientSignup  ${uri}  data=${input_data}  headers=${headers}
-    Verify the Response  ${response}  200
+#    create session  NewPatientSignup  ${Base_URL}
+#    ${uri} =  Compose URL  /signup
+#    ${input_data}=  Build Patient Signup Request  new_patient_signup.json
+#    ${headers} =  create dictionary   Content-Type=application/json   origin=https://api-qa.medvantxos.com
+#    ${response} =  post request  NewPatientSignup  ${uri}  data=${input_data}  headers=${headers}
+#    Verify the Response  ${response}  200
 #    ${welcome_email}=  Check Welcome Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}
 #    should be true  ${welcome_email}
 #    ${verify_email}=  Check Verify Email  ${SERVER ID}    ${RANDOM_EMAIL}  ${new_patient_name}

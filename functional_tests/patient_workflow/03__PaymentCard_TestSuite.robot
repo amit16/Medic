@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    Payment Card Workflow    This suite contains tescases to verify payment card workflow
-Resource         ../Resources/common_keywords.robot
+Resource         ../../Resources/common_keywords.robot
 Suite Setup      Patient Should be able to Signin
 Force Tags       PatientPaymentCard
 

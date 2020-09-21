@@ -2,7 +2,7 @@
 Documentation    Allergies and Medical Condition Workflow    This suite contains tescases to verify allergies and medical conditions workflow
 Library          RequestsLibrary
 Library          OperatingSystem
-Resource         ../Resources/common_keywords.robot
+Resource         ../../Resources/common_keywords.robot
 Suite Setup      SuperUser Should be able to Signin
 Force Tags       Allergy_MedicalCondition_PatientHealth
 

@@ -2,7 +2,7 @@
 Documentation    Patient Profile Workflow    This suite contains tescases to verify patient profile workflow
 Library          RequestsLibrary
 Library          OperatingSystem
-Resource         ../Resources/common_keywords.robot
+Resource         ../../Resources/common_keywords.robot
 Suite Teardown   Reset Patient Details On Suite Completion
 Force Tags       PatientProfile
 

@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation    Patient Order Workflow    This suite contains tescases to verify patient order workflow
-Resource         ../Resources/common_keywords.robot
+Resource         ../../Resources/common_keywords.robot
 Suite Setup      Patient Should be able to Signin
 Force Tags       PatientOrder
 
