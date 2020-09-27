@@ -103,9 +103,9 @@ Get Medication ID By Name
 Reset Patient Details On Suite Completion
     create session  UpdatePatientDetail  ${Base_URL}
     ${uri} =  Compose URL  /patient  ${patient_uuid}
-    ${file_data} =  Get File  ${json_path}patient_details.json
-    ${file_object}=  Evaluate  json.loads('''${file_data}''')   json
-    ${response} =  put request  UpdatePatientDetail  ${uri}  data=${file_object}   headers=${HEADER}
+    ${patient_data}=  Get Patient details   ${patient_uuid}
+    set to dictionary  ${patient_data}   gender=female
+    ${response} =  put request  UpdatePatientDetail  ${uri}  data=${patient_data}   headers=${HEADER}
     Verify the Response  ${response}  200
     Reset Patient Communication Preference
 

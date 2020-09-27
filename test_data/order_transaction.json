@@ -1,8 +1,8 @@
 {
-    "ccId": "bd18de7d-c317-4316-ae58-be8ff18e4cf3",
+    "ccId": "63db9086-b31e-4824-bc48-e837875562c6",
     "transType": "PRE_AUTH",
-    "transAmount": 110.0,
-    "transNumber": "038-2221",
+    "transAmount": 20.0,
+    "transNumber": "038-2222",
     "transStatus": "APPROVED",
-    "transDescription" : ""
+    "transDescription" : "this is express method"
 }

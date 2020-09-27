@@ -15,18 +15,16 @@ Build Request Paylod for Order
     set to dictionary  ${payload_object}  orderLine=${orderLine}
     return from keyword  ${payload_object}
 
-Verify Precription Details
-    [Arguments]    ${filename}  ${response}
+Verify Precription Details in Order
+    [Arguments]    ${response}
     ${order_details}=    evaluate    $response.json()
-    #${file_data} =  Get File  ${json_path}${filename}
-    #${file_prescription}=  Evaluate  json.loads('''${file_data}''')   json
     ${status}=  compare dicts  ${order_details["prescriptions"][0]}  ${file_prescription}  False
     should be true  ${status}
 
 Get Prescription ID By Drug NDC
     [Arguments]    ${prescription_list_response}
     FOR  ${file_prescription}  IN   @{prescription_list_response.json()}
-    run keyword if   '${file_prescription['drugNdc']}'=='${drug_ndc_rxrequest}'   Exit For Loop
+    run keyword if   '${file_prescription['drugNdc']}'=='${drug_ndc_rxrequest}' and '${file_prescription['prescriptionExpirationDate']}'=='Mon Sep 27 14:48:39 GMT 2021'  Exit For Loop
     END
     set suite variable  ${file_prescription}
     ${pres_id}=  evaluate  ${file_prescription}.get("id")
@@ -35,7 +33,7 @@ Get Prescription ID By Drug NDC
 Verify Shipment Amount
     [Arguments]    ${response}
     ${resource_details}=    evaluate    $response.json()
-    ${calculated_shipAmount} =    set variable    ${110.0}
+    ${calculated_shipAmount} =    set variable    ${20.0}
     should be equal  ${resource_details["shipAmount"]}  ${calculated_shipAmount}
 
 *** Test Cases ***
@@ -73,7 +71,7 @@ TC_004 : [POST] Create a New Order for a Patient
     ${input_data}=  Build Request Paylod for Order  create_order.json
     ${response} =  post request  NewOrder  ${uri}  data=${input_data}   headers=${HEADER}
     Verify the Response  ${response}  200
-    Verify Precription Details  prescription_details.json  ${response}
+    Verify Precription Details in Order  ${response}
     Verify Shipment Amount  ${response}
     ${order_id}=  Get Resource ID    ${response}
     set suite variable  ${order_id}
@@ -105,7 +103,6 @@ TC_007 : [GET] Get Specific Order Transactions
     ${response} =  get request  GetOrderTrans  ${uri}  headers=${HEADER}
     Verify the Response  ${response}  200
     ${trans_status}=    evaluate    $response.json()
-    #should be equal as strings  ${trans_status["orderType"]}   RX_TRANSFER
 
 TC_008 : [GET] Get All Order Transactions
     [Tags]  sanity
@@ -122,7 +119,7 @@ TC_009 : [POST] Submit a New Order for a Patient
     ${input_data} =  create dictionary  transUuid  ${order_tran_id}
     ${response} =  post request  NewOrderSubmit  ${uri}  data=${input_data}   headers=${HEADER}
     Verify the Response  ${response}  200
-    Verify Precription Details  prescription_details.json  ${response}
+    Verify Precription Details in Order  ${response}
     Verify Shipment Amount  ${response}
     ${order_sucess}=    evaluate    $response.json()
     should be equal as strings  ${order_sucess["paymentStatus"]}  payment_successful

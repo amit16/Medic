@@ -13,32 +13,30 @@ Get Data from file
     ${file_object}=  Evaluate  json.loads('''${file_data}''')   json
     return from keyword  ${file_object}
 
-*** Test Cases ***
-TC_001 : [GET] Verify Patient exist and check patient's uuid
-    [Tags]  sanity
-    Patient Should be able to Signin
-
-TC_002 : [GET] Verify Patient details and check patient's details
-    [Tags]  sanity
+Get Patient details
+    [Arguments]    ${patient_uuid}
     create session  GetPatientDetail  ${Base_URL}
     ${uri} =  Compose URL  /patient  ${patient_uuid}
     ${response} =  get request  GetPatientDetail  ${uri}  headers=${HEADER}
     ${input_data}=  Get Data from file  patient_details.json
     Verify the Response  ${response}  200
-    ${status}=  compare dicts   ${input_data}  ${response.json()}
-    should be true  ${status}
+    return from keyword  ${response.json()}
 
-TC_003 : [PUT] Update Patient details and check patient's data
+*** Test Cases ***
+TC_001 : [GET] Verify Patient exist and check patient's uuid
+    [Tags]  sanity
+    Patient Should be able to Signin
+
+TC_002 : [PUT] Update Patient details and check patient's data
     [Tags]  sanity
     create session  UpdatePatientDetail  ${Base_URL}
     ${uri} =  Compose URL  /patient  ${patient_uuid}
-    ${input_data}=  Get Data from file  patient_update.json
-    ${response} =  put request  UpdatePatientDetail  ${uri}  data=${input_data}   headers=${HEADER}
+    ${patient_data}=  Get Patient details   ${patient_uuid}
+    set to dictionary  ${patient_data}   gender=male
+    ${response} =  put request  UpdatePatientDetail  ${uri}  data=${patient_data}   headers=${HEADER}
     Verify the Response  ${response}  200
-    ${status}=  compare dicts   ${input_data}  ${response.json()}
-    should be true  ${status}
 
-TC_004 : [POST] Create a new medication.
+TC_003 : [POST] Create a new medication.
     [Tags]  sanity
     create session  CreateNewMedication  ${Base_URL}
     ${uri} =  Compose URL  /patient  ${patient_uuid}  medication
@@ -46,7 +44,7 @@ TC_004 : [POST] Create a new medication.
     ${response} =  post request  CreateNewMedication  ${uri}  data=${input_data}   headers=${HEADER}
     Verify the Response  ${response}  200
 
-TC_005 : [GET] A New Medication is created.
+TC_004 : [GET] A New Medication is created.
     [Tags]  sanity
     create session  GetNewMedication  ${Base_URL}
     ${input_data}=  Get Data from file  medication.json
@@ -55,7 +53,7 @@ TC_005 : [GET] A New Medication is created.
     Verify the Response  ${response}  200
     Verify the data present in response    ${response}    ${input_data}.get("name")   name
 
-TC_006 : [DELETE] Delete the newly created medication.
+TC_005 : [DELETE] Delete the newly created medication.
     [Tags]  sanity
     create session  DelNewMedication  ${Base_URL}
     ${input_data}=  Get Data from file  medication.json
@@ -64,7 +62,7 @@ TC_006 : [DELETE] Delete the newly created medication.
     ${response} =  delete request  DelNewMedication  ${uri}  headers=${HEADER}
     Verify the Response  ${response}  204
 
-TC_007 : [GET] Get Communication Preference for Patient
+TC_006 : [GET] Get Communication Preference for Patient
     [Tags]  sanity
     create session  GetCommunication  ${Base_URL}
     ${input_data}=  Get Data from file  communication_details.json
@@ -74,7 +72,7 @@ TC_007 : [GET] Get Communication Preference for Patient
     ${status}=  compare dicts   ${input_data}  ${response.json()["body"]}
     should be true  ${status}
 
-TC_008 : [PUT] Update Communication Preference for Patient
+TC_007 : [PUT] Update Communication Preference for Patient
     [Tags]  sanity
     create session  UpdateCommunication  ${Base_URL}
     ${uri} =  Compose URL  /patient  ${patient_uuid}  communicationpreference

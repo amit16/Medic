@@ -1,12 +1,12 @@
-base_url: https://api-qa.medvantxos.com/api/v1.0
-ibase_url: https://api-qa.medvantxos.com/iapi/v1.0
-domain: qsymiax
+base_url: https://api-dev.medvantxos.com/api/v1.0
+ibase_url: https://api-dev.medvantxos.com/iapi/v1.0
+domain: nebcin
 tenant: medvantx
 superuser: default-superuser@medvantx.com
-superuser_password: test1234
-user: ErSonal@medvantx.com
-password: test1234
-drug_ndc_rxrequest: '62541020130'
-drug_ndc_rxtransfer: '6254120316'
-md_name: 'ANGELA SMITH'
+superuser_password: devAdminEw11o##@"
+user: marklous643@gmail.com
+password: Test@123!
+drug_ndc_rxrequest: '00002050101'
+drug_ndc_rxtransfer: '00002064002'
+md_name: 'MARK GROSSMAN'
 json_path: '/Users/amit/PycharmProjects/Medic/test_data/'
