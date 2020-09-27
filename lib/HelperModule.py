@@ -9,6 +9,7 @@ import pprint
 import string
 pp = pprint.PrettyPrinter(indent=4)
 
+
 def convert_unicode_to_string(data):
     if isinstance(data, basestring):
         return str(data)
@@ -19,11 +20,13 @@ def convert_unicode_to_string(data):
     else:
         return data
 
+
 def search_key_in_list_of_dictionary(key_to_search, value, dict1):
     for item in dict1:
         if item[key_to_search] == value:
             return True
     return False
+
 
 def dictionary_search_list(key_to_search, dict1):
     data_l = []
@@ -52,6 +55,7 @@ def dictionary_search(key_to_search, dictionary):
         return data[0]
     else:
         return data
+
 
 def compare_dicts(expected_d, actual_d, ignore_key='id', count=False):
     logger.info('The expected dictionary is {} \n'.format(expected_d))
