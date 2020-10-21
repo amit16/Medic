@@ -9,7 +9,7 @@ import re
 import json
 import time
 import unittest
-import logging
+import logging as logger
 import requests
 from urllib.error import HTTPError
 from urllib.error import URLError
@@ -17,9 +17,9 @@ from urllib.error import URLError
 # adding this disable warning displayed
 requests.packages.urllib3.disable_warnings()
 
-logger = logging.getLogger('Library')
+logger.getLogger('Library')
 logfile = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.path.basename(__file__) + '.log')
-logging.basicConfig(filename=logfile, level=logging.DEBUG)
+logger.basicConfig(filename=logfile, level=logger.DEBUG)
 
 
 class RestApi(object):
@@ -94,6 +94,8 @@ class RestApi(object):
             logger.info('post response url:         %s' % response.url)
             if response.headers:
                 logger.info('post response headers: %s' % response.headers)
+            logger.info(
+                'post response details: %s' % json_response)
             self.HEADERS = headers
             self.COOKIE = cookie
             self.URL = url
@@ -159,6 +161,8 @@ class RestApi(object):
             logger.debug('get response url:         %s' % response.url)
             if response.headers:
                 logger.debug('get response headers: %s' % response.headers)
+            logger.info(
+                'post response details: %s' % json_response)
             self.HEADERS = headers
             self.COOKIE = cookie
             self.URL = url
@@ -231,6 +235,8 @@ class RestApi(object):
             logger.debug('put response url:         %s' % response.url)
             if response.headers:
                 logger.debug('put response headers: %s' % response.headers)
+            logger.info(
+                'post response details: %s' % json_response)
             self.HEADERS = headers
             self.COOKIE = cookie
             self.URL = url
@@ -294,6 +300,8 @@ class RestApi(object):
             # Process response
             logger.debug(
                 'delete response status_code: %s' % response.status_code)
+            logger.info(
+                'post response details: %s' % json_response)
             self.HEADERS = headers
             self.COOKIE = cookie
             self.URL = url

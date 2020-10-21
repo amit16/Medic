@@ -1,0 +1,26 @@
+base:
+  api_url: https://api-dev.medvantxos.com
+
+site: nebcin
+tenant: medvantx
+
+credentials:
+  patient:
+    username : marklous643@gmail.com
+    password : Test@123!
+
+  tenant_admin:
+    username: tenant_admin@pfizer.com
+    password: Test@1234!
+
+  superuser:
+    username: default-superuser@medvantx.com
+    password: devAdminEw11o##@
+
+drug:
+  ndc : '00023361606'
+  ndc_rxrequest: '00002050101'
+  ndc_rxtransfer: '00002064002'
+
+md_name: 'MARK GROSSMAN'
+json_path: '/Users/amit/PycharmProjects/Medic/test_data/'

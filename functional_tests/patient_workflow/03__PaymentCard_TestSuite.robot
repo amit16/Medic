@@ -1,17 +1,31 @@
 *** Settings ***
 Documentation    Payment Card Workflow    This suite contains tescases to verify payment card workflow
-Resource         ../../Resources/common_keywords.robot
-Suite Setup      Patient Should be able to Signin
+Resource         ../../keywords/all_keywords.robot
+Variables        ../../keywords/config.yaml
+
+Suite Setup      Patient Signin and Set Patient UUID
+Suite Teardown   User Should be able to Signout   ${Base_URL}  ${HEADER}
 Force Tags       PatientPaymentCard
 
 *** Keywords ***
+Patient Signin and Set Patient UUID
+    ${patient_credentials}=  get from dictionary  ${credentials}  patient
+    ${Base_URL}=   get from dictionary  ${base}  url
+    ${HEADER}=  User Should be able to Signin  ${Base_URL}  ${patient_credentials}
+    set suite variable  ${HEADER}  ${HEADER}
+    set suite variable  ${Base_URL}  ${Base_URL}
+    create session  GetPatient  ${Base_URL}
+    ${response} =  get request  GetPatient  /profile  headers=${HEADER}
+    Verify the Response  ${response}  200
+    ${patient_uuid} =    evaluate    $response.json().get("id")
+    set suite variable  ${patient_uuid}  ${patient_uuid}
+
 Build Request Paylod for CC
     [Arguments]    ${filename}
-    ${file_data} =  Get File  ${json_path}${filename}
-    ${payload}=  Evaluate  json.loads('''${file_data}''')   json
+    ${file_data} =  Get Data from file  ${json_path}${filename}
     ${billing_id}=  random billing id
-    set to dictionary  ${payload}  billingId=${billing_id}
-    return from keyword  ${payload}
+    set to dictionary  ${file_data}  billingId=${billing_id}
+    return from keyword  ${file_data}
 
 *** Test Cases ***
 TC_001 : [POST] Create a Payment Card for a Patient

@@ -1,0 +1,2839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.7.7 on darwin)" generated="20201005 09:30:26.468" rpa="false">
+<suite id="s1" name="Order TestSuite" source="/Users/amit/PycharmProjects/Medic/functional_tests/patient_workflow/02__Order_TestSuite.robot">
+<kw name="Patient Signin and Set Patient UUID" type="setup">
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${credentials}</arg>
+<arg>patient</arg>
+</arguments>
+<assign>
+<var>${patient_credentials}</var>
+</assign>
+<msg timestamp="20201005 09:30:26.996" level="INFO">${patient_credentials} = {'username': 'marklous643@gmail.com', 'password': 'Test@123!'}</msg>
+<status status="PASS" starttime="20201005 09:30:26.996" endtime="20201005 09:30:26.996"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${base}</arg>
+<arg>url</arg>
+</arguments>
+<assign>
+<var>${Base_URL}</var>
+</assign>
+<msg timestamp="20201005 09:30:26.997" level="INFO">${Base_URL} = https://api-dev.medvantxos.com/api/v1.0</msg>
+<status status="PASS" starttime="20201005 09:30:26.997" endtime="20201005 09:30:26.997"></status>
+</kw>
+<kw name="User Should be able to Signin" library="session_keywords">
+<arguments>
+<arg>${Base_URL}</arg>
+<arg>${patient_credentials}</arg>
+</arguments>
+<assign>
+<var>${HEADER}</var>
+</assign>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetToken</arg>
+<arg>${URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:26.997" level="INFO">Creating Session using : alias=GetToken, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:26.997" endtime="20201005 09:30:26.998"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${credentials}</arg>
+<arg>username</arg>
+</arguments>
+<assign>
+<var>${username}</var>
+</assign>
+<msg timestamp="20201005 09:30:26.998" level="INFO">${username} = marklous643@gmail.com</msg>
+<status status="PASS" starttime="20201005 09:30:26.998" endtime="20201005 09:30:26.998"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${credentials}</arg>
+<arg>password</arg>
+</arguments>
+<assign>
+<var>${password}</var>
+</assign>
+<msg timestamp="20201005 09:30:26.999" level="INFO">${password} = Test@123!</msg>
+<status status="PASS" starttime="20201005 09:30:26.998" endtime="20201005 09:30:26.999"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>username=${username}</arg>
+<arg>password=${password}</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20201005 09:30:26.999" level="INFO">${body} = {'username': 'marklous643@gmail.com', 'password': 'Test@123!'}</msg>
+<status status="PASS" starttime="20201005 09:30:26.999" endtime="20201005 09:30:26.999"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20201005 09:30:27.000" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<status status="PASS" starttime="20201005 09:30:26.999" endtime="20201005 09:30:27.000"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetToken</arg>
+<arg>/signin</arg>
+<arg>data=${body}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:28.630" level="INFO">POST Request : url=https://api-dev.medvantxos.com/api/v1.0/signin 
+ path_url=/api/v1.0/signin 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '62'} 
+ body={"username": "marklous643@gmail.com", "password": "Test@123!"} 
+ </msg>
+<msg timestamp="20201005 09:30:28.630" level="INFO">POST Response : url=https://api-dev.medvantxos.com/api/v1.0/signin 
+ status=200, reason= 
+ body={"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3N2Q1YjBhYy0wMDAzLTRjZTYtYjY0My01ZTAxZGU2MWEzZmYifQ.eyJleHAiOjE2MDE4NzI0MTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiMzM0MTY5YWEtY2M3ZS00NjhlLTliODgtMGRmNzg4NTkxMmIwIiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6Imh0dHA6Ly9rZXljbG9hay1zdmMvYXV0aC9yZWFsbXMvbWVkdmFudHgiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoiYWRtaW4tY2xpIiwic2Vzc2lvbl9zdGF0ZSI6ImQxOGZhOGI2LWEzN2ItNDExNC1hMDk0LTEwN2RjYWE0ZGFjZSIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCJ9.qPaBbhoYH2y2GH9OX81exL3MxmGFRcfwQrC8VWINpc4","access_token":"eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg","session_state":"d18fa8b6-a37b-4114-a094-107dcaa4dace","expires_in":"3600","refresh_expires_in":"1800","token_type":"bearer","id":"marklous643@gmail.com"} 
+ </msg>
+<msg timestamp="20201005 09:30:28.630" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:28.630" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:27.000" endtime="20201005 09:30:28.630"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20201005 09:30:28.631" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:28.631" endtime="20201005 09:30:28.631"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json().get("access_token")</arg>
+</arguments>
+<assign>
+<var>${accessToken}</var>
+</assign>
+<msg timestamp="20201005 09:30:28.637" level="INFO">${accessToken} = eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAt...</msg>
+<status status="PASS" starttime="20201005 09:30:28.631" endtime="20201005 09:30:28.637"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json().get("refresh_token")</arg>
+</arguments>
+<assign>
+<var>${refreshToken}</var>
+</assign>
+<msg timestamp="20201005 09:30:28.637" level="INFO">${refreshToken} = eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3N2Q1YjBhYy0wMDAzLTRjZTYtYjY0My01ZTAxZGU2MWEzZmYifQ.eyJleHAiOjE2MDE4NzI0MTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiMzM0MTY5YWEtY2M3ZS00NjhlLTliODgtMGRmNzg4N...</msg>
+<status status="PASS" starttime="20201005 09:30:28.637" endtime="20201005 09:30:28.637"></status>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<doc>Verifies that the given item is not empty.</doc>
+<arguments>
+<arg>${accessToken}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:28.638" level="INFO">Length is 1305</msg>
+<status status="PASS" starttime="20201005 09:30:28.638" endtime="20201005 09:30:28.638"></status>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<doc>Verifies that the given item is not empty.</doc>
+<arguments>
+<arg>${refreshToken}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:28.638" level="INFO">Length is 595</msg>
+<status status="PASS" starttime="20201005 09:30:28.638" endtime="20201005 09:30:28.638"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${refreshToken}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:28.639" level="INFO">${refreshToken} = eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3N2Q1YjBhYy0wMDAzLTRjZTYtYjY0My01ZTAxZGU2MWEzZmYifQ.eyJleHAiOjE2MDE4NzI0MTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiMzM0MTY5YWEtY2M3ZS00NjhlLTliODgtMGRmNzg4N...</msg>
+<status status="PASS" starttime="20201005 09:30:28.638" endtime="20201005 09:30:28.639"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Authorization=Bearer ${accessToken}</arg>
+<arg>Content-Type=application/json</arg>
+</arguments>
+<assign>
+<var>${HEADER}</var>
+</assign>
+<msg timestamp="20201005 09:30:28.639" level="INFO">${HEADER} = {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMT...</msg>
+<status status="PASS" starttime="20201005 09:30:28.639" endtime="20201005 09:30:28.639"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${HEADER}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:28.640" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:28.640" endtime="20201005 09:30:28.640"></status>
+</kw>
+<msg timestamp="20201005 09:30:28.640" level="INFO">${HEADER} = {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMT...</msg>
+<status status="PASS" starttime="20201005 09:30:26.997" endtime="20201005 09:30:28.640"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${HEADER}</arg>
+<arg>${HEADER}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:28.640" level="INFO">${HEADER} = {'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMT...</msg>
+<status status="PASS" starttime="20201005 09:30:28.640" endtime="20201005 09:30:28.641"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${Base_URL}</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:28.641" level="INFO">${Base_URL} = https://api-dev.medvantxos.com/api/v1.0</msg>
+<status status="PASS" starttime="20201005 09:30:28.641" endtime="20201005 09:30:28.641"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetPatient</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:28.641" level="INFO">Creating Session using : alias=GetPatient, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:28.641" endtime="20201005 09:30:28.642"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetPatient</arg>
+<arg>/profile</arg>
+<arg>headers=${HEADER}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:29.930" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/profile 
+ path_url=/api/v1.0/profile 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:29.930" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/profile 
+ status=200, reason= 
+ body={"firstName":"David","lastName":"Finch","role":"USER","emailAddress":"marklous643@gmail.com","tenantId":"00000000-0000-0000-0000-000000000001","phoneNumber":"9763550803","lastLogin":1601870614614,"createdBy":"SYSTEM","hasOrders":true,"id":"743a85b1-07eb-4be3-87e5-6775e61bda74"} 
+ </msg>
+<msg timestamp="20201005 09:30:29.930" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:29.931" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:28.642" endtime="20201005 09:30:29.931"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:29.932" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:29.932" endtime="20201005 09:30:29.932"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:29.933" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:29.932" endtime="20201005 09:30:29.933"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:29.933" level="INFO">Response body is : {"firstName":"David","lastName":"Finch","role":"USER","emailAddress":"marklous643@gmail.com","tenantId":"00000000-0000-0000-0000-000000000001","phoneNumber":"9763550803","lastLogin":1601870614614,"createdBy":"SYSTEM","hasOrders":true,"id":"743a85b1-07eb-4be3-87e5-6775e61bda74"}</msg>
+<status status="PASS" starttime="20201005 09:30:29.933" endtime="20201005 09:30:29.933"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:29.931" endtime="20201005 09:30:29.934"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json().get("id")</arg>
+</arguments>
+<assign>
+<var>${patient_uuid}</var>
+</assign>
+<msg timestamp="20201005 09:30:29.934" level="INFO">${patient_uuid} = 743a85b1-07eb-4be3-87e5-6775e61bda74</msg>
+<status status="PASS" starttime="20201005 09:30:29.934" endtime="20201005 09:30:29.934"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${patient_uuid}</arg>
+<arg>${patient_uuid}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:29.935" level="INFO">${patient_uuid} = 743a85b1-07eb-4be3-87e5-6775e61bda74</msg>
+<status status="PASS" starttime="20201005 09:30:29.934" endtime="20201005 09:30:29.935"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:26.996" endtime="20201005 09:30:29.935"></status>
+</kw>
+<test id="s1-t1" name="TC_001 : [GET] Verify Prescription list exist for the Patient">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetPrescription</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:29.936" level="INFO">Creating Session using : alias=GetPrescription, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:29.936" endtime="20201005 09:30:29.936"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/patient</arg>
+<arg>${patient_uuid}</arg>
+<arg>prescriptions</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:29.938" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/prescriptions</msg>
+<status status="PASS" starttime="20201005 09:30:29.937" endtime="20201005 09:30:29.938"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:29.938" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:29.938" endtime="20201005 09:30:29.938"></status>
+</kw>
+<msg timestamp="20201005 09:30:29.938" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/prescriptions</msg>
+<status status="PASS" starttime="20201005 09:30:29.937" endtime="20201005 09:30:29.938"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetPrescription</arg>
+<arg>${uri}</arg>
+<arg>headers=${HEADER}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:31.123" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/prescriptions 
+ path_url=/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/prescriptions 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:31.124" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/prescriptions 
+ status=200, reason= 
+ body=[{"prescriptionNumber":"84826","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Thu Sep 24 15:28:17 GMT 2020","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c4d6ce9f-c8ac-4b6c-b0d5-623c9cfc7d71"},{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}] 
+ </msg>
+<msg timestamp="20201005 09:30:31.124" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:31.124" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:29.938" endtime="20201005 09:30:31.124"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:31.126" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:31.126" endtime="20201005 09:30:31.126"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:31.127" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:31.126" endtime="20201005 09:30:31.127"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:31.130" level="INFO">Response body is : [{"prescriptionNumber":"84826","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Thu Sep 24 15:28:17 GMT 2020","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c4d6ce9f-c8ac-4b6c-b0d5-623c9cfc7d71"},{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}]</msg>
+<status status="PASS" starttime="20201005 09:30:31.128" endtime="20201005 09:30:31.130"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:31.125" endtime="20201005 09:30:31.131"></status>
+</kw>
+<kw name="Get Prescription ID By Drug NDC">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<assign>
+<var>${prescription_id}</var>
+</assign>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>@{prescription_list_response.json()}</arg>
+</arguments>
+<assign>
+<var>${prescription_list}</var>
+</assign>
+<msg timestamp="20201005 09:30:31.132" level="INFO">${prescription_list} = [{'prescriptionNumber': '84826', 'drugNdc': '00002050101', 'drugDisplayName': 'NEBCIN PED 10 MG/ML VIAL                                    ', 'quantityWritten': '1.0', 'quantityRemaining': '1.0', 'doc...</msg>
+<status status="PASS" starttime="20201005 09:30:31.131" endtime="20201005 09:30:31.132"></status>
+</kw>
+<kw name="Get Prescription From List" library="HelperModule">
+<doc>Check's prescritions expiry status
+:param prescription_list:
+:param status:
+:return:</doc>
+<arguments>
+<arg>${prescription_list}</arg>
+<arg>${drug["ndc_rxrequest"]}</arg>
+<arg>valid</arg>
+</arguments>
+<assign>
+<var>${pres_details}</var>
+</assign>
+<msg timestamp="20201005 09:30:31.133" level="INFO">info: The following is the prescritions lists : [{'prescriptionNumber': '84826', 'drugNdc': '00002050101', 'drugDisplayName': 'NEBCIN PED 10 MG/ML VIAL                                    ', 'quantityWritten': '1.0', 'quantityRemaining': '1.0', 'doctorNpi': '5955', 'doctorName': 'MARK GROSSMAN', 'doctorAddress': '5767 W CENTURY BLVD STE 200 ', 'doctorCity': 'LOS ANGELES', 'doctorState': 'CA', 'doctorZip': '90045  ', 'doctorPhone': '8287172   ', 'prescriptionExpirationDate': 'Thu Sep 24 15:28:17 GMT 2020', 'prescriptionNextRefillDate': '', 'prescriptionLastFilledDate': '', 'dose': 1, 'instructions': 'DummySignText', 'id': 'c4d6ce9f-c8ac-4b6c-b0d5-623c9cfc7d71'}, {'prescriptionNumber': '84828', 'drugNdc': '00002050101', 'drugDisplayName': 'NEBCIN PED 10 MG/ML VIAL                                    ', 'quantityWritten': '1.0', 'quantityRemaining': '1.0', 'doctorNpi': '5955', 'doctorName': 'MARK GROSSMAN', 'doctorAddress': '5767 W CENTURY BLVD STE 200 ', 'doctorCity': 'LOS ANGELES', 'doctorState': 'CA', 'doctorZip': '90045  ', 'doctorPhone': '8287172   ', 'prescriptionExpirationDate': 'Mon Sep 27 14:48:39 GMT 2021', 'prescriptionNextRefillDate': '', 'prescriptionLastFilledDate': '', 'dose': 1, 'instructions': 'DummySignText', 'id': 'c98ea127-0494-4934-a952-1c9f286b5632'}]</msg>
+<msg timestamp="20201005 09:30:31.133" level="INFO">${pres_details} = {'prescriptionNumber': '84828', 'drugNdc': '00002050101', 'drugDisplayName': 'NEBCIN PED 10 MG/ML VIAL                                    ', 'quantityWritten': '1.0', 'quantityRemaining': '1.0', 'doct...</msg>
+<status status="PASS" starttime="20201005 09:30:31.132" endtime="20201005 09:30:31.133"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${pres_details}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:31.134" level="INFO">${pres_details} = {'prescriptionNumber': '84828', 'drugNdc': '00002050101', 'drugDisplayName': 'NEBCIN PED 10 MG/ML VIAL                                    ', 'quantityWritten': '1.0', 'quantityRemaining': '1.0', 'doct...</msg>
+<status status="PASS" starttime="20201005 09:30:31.133" endtime="20201005 09:30:31.134"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${pres_details["id"]}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:31.134" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:31.134" endtime="20201005 09:30:31.134"></status>
+</kw>
+<msg timestamp="20201005 09:30:31.134" level="INFO">${prescription_id} = c98ea127-0494-4934-a952-1c9f286b5632</msg>
+<status status="PASS" starttime="20201005 09:30:31.131" endtime="20201005 09:30:31.134"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${prescription_id}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:31.135" level="INFO">${prescription_id} = c98ea127-0494-4934-a952-1c9f286b5632</msg>
+<status status="PASS" starttime="20201005 09:30:31.135" endtime="20201005 09:30:31.135"></status>
+</kw>
+<tags>
+<tag>PatientOrder</tag>
+<tag>sanity</tag>
+</tags>
+<status status="PASS" starttime="20201005 09:30:29.935" endtime="20201005 09:30:31.135" critical="yes"></status>
+</test>
+<test id="s1-t2" name="TC_002 : [GET] Verify Specific Prescription exist for the Patient">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetSpecificPrescription</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:31.137" level="INFO">Creating Session using : alias=GetSpecificPrescription, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:31.137" endtime="20201005 09:30:31.137"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/patient</arg>
+<arg>${patient_uuid}</arg>
+<arg>prescription</arg>
+<arg>${prescription_id}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:31.138" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/prescription/c98ea127-0494-4934-a952-1c9f286b5632</msg>
+<status status="PASS" starttime="20201005 09:30:31.138" endtime="20201005 09:30:31.138"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:31.138" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:31.138" endtime="20201005 09:30:31.139"></status>
+</kw>
+<msg timestamp="20201005 09:30:31.139" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/prescription/c98ea127-0494-4934-a952-1c9f286b5632</msg>
+<status status="PASS" starttime="20201005 09:30:31.137" endtime="20201005 09:30:31.139"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetSpecificPrescription</arg>
+<arg>${uri}</arg>
+<arg>headers=${HEADER}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:32.491" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/prescription/c98ea127-0494-4934-a952-1c9f286b5632 
+ path_url=/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/prescription/c98ea127-0494-4934-a952-1c9f286b5632 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:32.491" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/prescription/c98ea127-0494-4934-a952-1c9f286b5632 
+ status=200, reason= 
+ body={"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"} 
+ </msg>
+<msg timestamp="20201005 09:30:32.491" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:32.492" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:31.139" endtime="20201005 09:30:32.492"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:32.504" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:32.493" endtime="20201005 09:30:32.504"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:32.505" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:32.504" endtime="20201005 09:30:32.505"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:32.505" level="INFO">Response body is : {"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}</msg>
+<status status="PASS" starttime="20201005 09:30:32.505" endtime="20201005 09:30:32.505"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:32.492" endtime="20201005 09:30:32.505"></status>
+</kw>
+<kw name="Get Resource ID" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<assign>
+<var>${prescription_specific_id}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json()</arg>
+</arguments>
+<assign>
+<var>${resource_details}</var>
+</assign>
+<msg timestamp="20201005 09:30:32.506" level="INFO">${resource_details} = {'prescriptionNumber': '84828', 'drugNdc': '00002050101', 'drugDisplayName': 'NEBCIN PED 10 MG/ML VIAL                                    ', 'quantityWritten': '1.0', 'quantityRemaining': '1.0', 'doct...</msg>
+<status status="PASS" starttime="20201005 09:30:32.506" endtime="20201005 09:30:32.506"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resource_details["id"]}</arg>
+</arguments>
+<assign>
+<var>${resource_id}</var>
+</assign>
+<msg timestamp="20201005 09:30:32.507" level="INFO">${resource_id} = c98ea127-0494-4934-a952-1c9f286b5632</msg>
+<status status="PASS" starttime="20201005 09:30:32.506" endtime="20201005 09:30:32.507"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${resource_id}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:32.507" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:32.507" endtime="20201005 09:30:32.507"></status>
+</kw>
+<msg timestamp="20201005 09:30:32.507" level="INFO">${prescription_specific_id} = c98ea127-0494-4934-a952-1c9f286b5632</msg>
+<status status="PASS" starttime="20201005 09:30:32.505" endtime="20201005 09:30:32.507"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${prescription_id}</arg>
+<arg>${prescription_specific_id}</arg>
+</arguments>
+<status status="PASS" starttime="20201005 09:30:32.508" endtime="20201005 09:30:32.508"></status>
+</kw>
+<tags>
+<tag>PatientOrder</tag>
+<tag>sanity</tag>
+</tags>
+<status status="PASS" starttime="20201005 09:30:31.136" endtime="20201005 09:30:32.508" critical="yes"></status>
+</test>
+<test id="s1-t3" name="TC_003 : [GET] Verify Shipping Id list exist(No Auth)">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetShipping</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:32.511" level="INFO">Creating Session using : alias=GetShipping, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:32.509" endtime="20201005 09:30:32.512"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/shippingmethod</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:32.514" level="INFO">${uri} = /shippingmethod</msg>
+<status status="PASS" starttime="20201005 09:30:32.513" endtime="20201005 09:30:32.514"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:32.514" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:32.514" endtime="20201005 09:30:32.514"></status>
+</kw>
+<msg timestamp="20201005 09:30:32.514" level="INFO">${uri} = /shippingmethod</msg>
+<status status="PASS" starttime="20201005 09:30:32.513" endtime="20201005 09:30:32.514"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetShipping</arg>
+<arg>${uri}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:33.923" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/shippingmethod 
+ path_url=/api/v1.0/shippingmethod 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:33.923" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/shippingmethod 
+ status=200, reason= 
+ body=[{"shippingVendor":"UPS","minDays":1,"maxDays":1,"minCost":30.0,"maxCost":30.0,"extraOption":false,"grxShippingId":1001,"id":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"},{"shippingVendor":"UPS","minDays":2,"maxDays":2,"minCost":20.0,"maxCost":20.0,"extraOption":true,"grxShippingId":1006,"id":"515e569d-8510-4ebb-a56e-0279e928cda0"},{"shippingVendor":"UPS","minDays":3,"maxDays":3,"minCost":15.0,"maxCost":15.0,"extraOption":true,"grxShippingId":1011,"id":"aab0e686-ec15-49d5-9f68-9c1de320e448"}] 
+ </msg>
+<msg timestamp="20201005 09:30:33.923" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:33.924" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:32.515" endtime="20201005 09:30:33.924"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:33.925" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:33.925" endtime="20201005 09:30:33.925"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:33.926" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:33.925" endtime="20201005 09:30:33.926"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:33.926" level="INFO">Response body is : [{"shippingVendor":"UPS","minDays":1,"maxDays":1,"minCost":30.0,"maxCost":30.0,"extraOption":false,"grxShippingId":1001,"id":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"},{"shippingVendor":"UPS","minDays":2,"maxDays":2,"minCost":20.0,"maxCost":20.0,"extraOption":true,"grxShippingId":1006,"id":"515e569d-8510-4ebb-a56e-0279e928cda0"},{"shippingVendor":"UPS","minDays":3,"maxDays":3,"minCost":15.0,"maxCost":15.0,"extraOption":true,"grxShippingId":1011,"id":"aab0e686-ec15-49d5-9f68-9c1de320e448"}]</msg>
+<status status="PASS" starttime="20201005 09:30:33.926" endtime="20201005 09:30:33.927"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:33.924" endtime="20201005 09:30:33.927"></status>
+</kw>
+<kw name="Get First Resource ID from List" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<assign>
+<var>${shipping_id}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$list_response.json()</arg>
+</arguments>
+<assign>
+<var>${resource_details}</var>
+</assign>
+<msg timestamp="20201005 09:30:33.928" level="INFO">${resource_details} = [{'shippingVendor': 'UPS', 'minDays': 1, 'maxDays': 1, 'minCost': 30.0, 'maxCost': 30.0, 'extraOption': False, 'grxShippingId': 1001, 'id': '04ad4aa5-bfa8-490d-b849-d0ce607bddfa'}, {'shippingVendor': ...</msg>
+<status status="PASS" starttime="20201005 09:30:33.928" endtime="20201005 09:30:33.928"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resource_details[0]["id"]}</arg>
+</arguments>
+<assign>
+<var>${resource_id}</var>
+</assign>
+<msg timestamp="20201005 09:30:33.929" level="INFO">${resource_id} = 04ad4aa5-bfa8-490d-b849-d0ce607bddfa</msg>
+<status status="PASS" starttime="20201005 09:30:33.928" endtime="20201005 09:30:33.929"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${resource_id}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:33.929" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:33.929" endtime="20201005 09:30:33.929"></status>
+</kw>
+<msg timestamp="20201005 09:30:33.929" level="INFO">${shipping_id} = 04ad4aa5-bfa8-490d-b849-d0ce607bddfa</msg>
+<status status="PASS" starttime="20201005 09:30:33.927" endtime="20201005 09:30:33.929"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${shipping_id}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:33.930" level="INFO">${shipping_id} = 04ad4aa5-bfa8-490d-b849-d0ce607bddfa</msg>
+<status status="PASS" starttime="20201005 09:30:33.930" endtime="20201005 09:30:33.930"></status>
+</kw>
+<tags>
+<tag>PatientOrder</tag>
+<tag>sanity</tag>
+</tags>
+<status status="PASS" starttime="20201005 09:30:32.509" endtime="20201005 09:30:33.930" critical="yes"></status>
+</test>
+<test id="s1-t4" name="TC_004 : [POST] Create a New Order for a Patient">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>NewOrder</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:33.932" level="INFO">Creating Session using : alias=NewOrder, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:33.931" endtime="20201005 09:30:33.932"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/patient</arg>
+<arg>${patient_uuid}</arg>
+<arg>order</arg>
+<arg>f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:33.933" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6</msg>
+<status status="PASS" starttime="20201005 09:30:33.933" endtime="20201005 09:30:33.933"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:33.933" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:33.933" endtime="20201005 09:30:33.933"></status>
+</kw>
+<msg timestamp="20201005 09:30:33.933" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6</msg>
+<status status="PASS" starttime="20201005 09:30:33.932" endtime="20201005 09:30:33.933"></status>
+</kw>
+<kw name="Build Request Paylod for Order">
+<arguments>
+<arg>create_order.json</arg>
+</arguments>
+<assign>
+<var>${input_data}</var>
+</assign>
+<kw name="Get Data from file" library="operations_keywords">
+<arguments>
+<arg>${json_path}${filename}</arg>
+</arguments>
+<assign>
+<var>${payload_object}</var>
+</assign>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>${filepath}</arg>
+</arguments>
+<assign>
+<var>${file_data}</var>
+</assign>
+<msg timestamp="20201005 09:30:33.935" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/amit/PycharmProjects/Medic/test_data/create_order.json"&gt;/Users/amit/PycharmProjects/Medic/test_data/create_order.json&lt;/a&gt;'.</msg>
+<msg timestamp="20201005 09:30:33.937" level="INFO">${file_data} = {
+        "shipToFirstName": "David",
+        "shipToLastName": "Finch",
+        "shipToAddress": "1901 West Madison Street",
+        "methodOfShipment": "STANDARD",
+        "shipToAddress2": " ",
+   ...</msg>
+<status status="PASS" starttime="20201005 09:30:33.934" endtime="20201005 09:30:33.937"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>json.loads('''${file_data}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${file_object}</var>
+</assign>
+<msg timestamp="20201005 09:30:33.941" level="INFO">${file_object} = {'shipToFirstName': 'David', 'shipToLastName': 'Finch', 'shipToAddress': '1901 West Madison Street', 'methodOfShipment': 'STANDARD', 'shipToAddress2': ' ', 'shipToCity': 'Chicago', 'shipToStateCode': ...</msg>
+<status status="PASS" starttime="20201005 09:30:33.937" endtime="20201005 09:30:33.941"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${file_object}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:33.941" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:33.941" endtime="20201005 09:30:33.941"></status>
+</kw>
+<msg timestamp="20201005 09:30:33.942" level="INFO">${payload_object} = {'shipToFirstName': 'David', 'shipToLastName': 'Finch', 'shipToAddress': '1901 West Madison Street', 'methodOfShipment': 'STANDARD', 'shipToAddress2': ' ', 'shipToCity': 'Chicago', 'shipToStateCode': ...</msg>
+<status status="PASS" starttime="20201005 09:30:33.934" endtime="20201005 09:30:33.942"></status>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<doc>Returns a list containing given items.</doc>
+<assign>
+<var>${orderLine}</var>
+</assign>
+<msg timestamp="20201005 09:30:33.943" level="INFO">${orderLine} = []</msg>
+<status status="PASS" starttime="20201005 09:30:33.942" endtime="20201005 09:30:33.943"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>prescriptionId</arg>
+<arg>${prescription_id}</arg>
+<arg>shippingMethodId</arg>
+<arg>${shipping_id}</arg>
+<arg>qtyOrdered</arg>
+<arg>${2}</arg>
+</arguments>
+<assign>
+<var>${orderLine_item}</var>
+</assign>
+<msg timestamp="20201005 09:30:33.945" level="INFO">${orderLine_item} = {'prescriptionId': 'c98ea127-0494-4934-a952-1c9f286b5632', 'shippingMethodId': '04ad4aa5-bfa8-490d-b849-d0ce607bddfa', 'qtyOrdered': 2}</msg>
+<status status="PASS" starttime="20201005 09:30:33.943" endtime="20201005 09:30:33.945"></status>
+</kw>
+<kw name="Append To List" library="Collections">
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<arguments>
+<arg>${orderLine}</arg>
+<arg>${orderLine_item}</arg>
+</arguments>
+<status status="PASS" starttime="20201005 09:30:33.945" endtime="20201005 09:30:33.945"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${payload_object}</arg>
+<arg>orderLine=${orderLine}</arg>
+</arguments>
+<status status="PASS" starttime="20201005 09:30:33.946" endtime="20201005 09:30:33.946"></status>
+</kw>
+<kw name="Get Patient details">
+<arguments>
+<arg>${patient_uuid}</arg>
+</arguments>
+<assign>
+<var>${patient_details}</var>
+</assign>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetPatientDetail</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:33.947" level="INFO">Creating Session using : alias=GetPatientDetail, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:33.947" endtime="20201005 09:30:33.948"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/patient</arg>
+<arg>${patient_uuid}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:33.948" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74</msg>
+<status status="PASS" starttime="20201005 09:30:33.948" endtime="20201005 09:30:33.948"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:33.949" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:33.949" endtime="20201005 09:30:33.949"></status>
+</kw>
+<msg timestamp="20201005 09:30:33.949" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74</msg>
+<status status="PASS" starttime="20201005 09:30:33.948" endtime="20201005 09:30:33.949"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetPatientDetail</arg>
+<arg>${uri}</arg>
+<arg>headers=${HEADER}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:35.154" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74 
+ path_url=/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:35.154" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74 
+ status=200, reason= 
+ body={"firstName":"David","lastName":"Finch","dateOfBirth":"1992-12-30","zipCode":"60611","address1":"19 E Ohio St","address2":"Freehand Chicago","address3":null,"city":"","stateCode":"IL","primaryPhone":"9763550803","gender":"female","id":"743a85b1-07eb-4be3-87e5-6775e61bda74"} 
+ </msg>
+<msg timestamp="20201005 09:30:35.154" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:35.154" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:33.949" endtime="20201005 09:30:35.154"></status>
+</kw>
+<kw name="Get Data from file" library="operations_keywords">
+<arguments>
+<arg>${json_path}patient_details.json</arg>
+</arguments>
+<assign>
+<var>${input_data}</var>
+</assign>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>${filepath}</arg>
+</arguments>
+<assign>
+<var>${file_data}</var>
+</assign>
+<msg timestamp="20201005 09:30:35.156" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/amit/PycharmProjects/Medic/test_data/patient_details.json"&gt;/Users/amit/PycharmProjects/Medic/test_data/patient_details.json&lt;/a&gt;'.</msg>
+<msg timestamp="20201005 09:30:35.158" level="INFO">${file_data} = {
+    "firstName": "ErSonal",
+    "lastName": "ErRajbhoj",
+    "dateOfBirth": "1985-02-01",
+    "zipCode": "60611",
+    "address1": "19 E Ohio St",
+    "address2": "Freehand Chicago",
+    "address3": ...</msg>
+<status status="PASS" starttime="20201005 09:30:35.155" endtime="20201005 09:30:35.158"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>json.loads('''${file_data}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${file_object}</var>
+</assign>
+<msg timestamp="20201005 09:30:35.159" level="INFO">${file_object} = {'firstName': 'ErSonal', 'lastName': 'ErRajbhoj', 'dateOfBirth': '1985-02-01', 'zipCode': '60611', 'address1': '19 E Ohio St', 'address2': 'Freehand Chicago', 'address3': None, 'city': '', 'stateCode'...</msg>
+<status status="PASS" starttime="20201005 09:30:35.158" endtime="20201005 09:30:35.159"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${file_object}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:35.160" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:35.159" endtime="20201005 09:30:35.160"></status>
+</kw>
+<msg timestamp="20201005 09:30:35.160" level="INFO">${input_data} = {'firstName': 'ErSonal', 'lastName': 'ErRajbhoj', 'dateOfBirth': '1985-02-01', 'zipCode': '60611', 'address1': '19 E Ohio St', 'address2': 'Freehand Chicago', 'address3': None, 'city': '', 'stateCode'...</msg>
+<status status="PASS" starttime="20201005 09:30:35.155" endtime="20201005 09:30:35.160"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:35.161" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:35.161" endtime="20201005 09:30:35.161"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:35.162" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:35.161" endtime="20201005 09:30:35.162"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:35.162" level="INFO">Response body is : {"firstName":"David","lastName":"Finch","dateOfBirth":"1992-12-30","zipCode":"60611","address1":"19 E Ohio St","address2":"Freehand Chicago","address3":null,"city":"","stateCode":"IL","primaryPhone":"9763550803","gender":"female","id":"743a85b1-07eb-4be3-87e5-6775e61bda74"}</msg>
+<status status="PASS" starttime="20201005 09:30:35.162" endtime="20201005 09:30:35.162"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:35.160" endtime="20201005 09:30:35.162"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${response.json()}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:35.163" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:35.163" endtime="20201005 09:30:35.163"></status>
+</kw>
+<msg timestamp="20201005 09:30:35.163" level="INFO">${patient_details} = {'firstName': 'David', 'lastName': 'Finch', 'dateOfBirth': '1992-12-30', 'zipCode': '60611', 'address1': '19 E Ohio St', 'address2': 'Freehand Chicago', 'address3': None, 'city': '', 'stateCode': 'IL'...</msg>
+<status status="PASS" starttime="20201005 09:30:33.946" endtime="20201005 09:30:35.163"></status>
+</kw>
+<kw name="Update Patient Address" library="HelperModule">
+<doc>Add patient address details to the order payload
+:param patient_details:
+:param prescription_payload:
+:return:</doc>
+<arguments>
+<arg>${patient_details}</arg>
+<arg>${payload_object}</arg>
+</arguments>
+<assign>
+<var>${payload}</var>
+</assign>
+<msg timestamp="20201005 09:30:35.164" level="INFO">${payload} = {'shipToFirstName': 'David', 'shipToLastName': 'Finch', 'shipToAddress': '19 E Ohio St', 'methodOfShipment': 'STANDARD', 'shipToAddress2': 'Freehand Chicago', 'shipToCity': 'Chicago', 'shipToStateCode...</msg>
+<status status="PASS" starttime="20201005 09:30:35.164" endtime="20201005 09:30:35.164"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${payload}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:35.164" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:35.164" endtime="20201005 09:30:35.165"></status>
+</kw>
+<msg timestamp="20201005 09:30:35.165" level="INFO">${input_data} = {'shipToFirstName': 'David', 'shipToLastName': 'Finch', 'shipToAddress': '19 E Ohio St', 'methodOfShipment': 'STANDARD', 'shipToAddress2': 'Freehand Chicago', 'shipToCity': 'Chicago', 'shipToStateCode...</msg>
+<status status="PASS" starttime="20201005 09:30:33.934" endtime="20201005 09:30:35.165"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>NewOrder</arg>
+<arg>${uri}</arg>
+<arg>headers=${HEADER}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:36.384" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6 
+ path_url=/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:36.384" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6 
+ status=200, reason= 
+ body={"timeStamp":1601870622406,"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19156","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601870223484,"expectedDeliveryDate":1601956623484,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"shipAmount":20.0,"orderStatus":"Submitted","orderStatusInternal":"CREATED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6"} 
+ </msg>
+<msg timestamp="20201005 09:30:36.384" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:36.384" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:35.166" endtime="20201005 09:30:36.384"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:36.386" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:36.385" endtime="20201005 09:30:36.386"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:36.386" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:36.386" endtime="20201005 09:30:36.386"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:36.387" level="INFO">Response body is : {"timeStamp":1601870622406,"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19156","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601870223484,"expectedDeliveryDate":1601956623484,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"shipAmount":20.0,"orderStatus":"Submitted","orderStatusInternal":"CREATED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6"}</msg>
+<status status="PASS" starttime="20201005 09:30:36.386" endtime="20201005 09:30:36.387"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:36.385" endtime="20201005 09:30:36.387"></status>
+</kw>
+<kw name="Verify Precription Details in Order">
+<arguments>
+<arg>${response}</arg>
+<arg>${input_data}</arg>
+</arguments>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json()</arg>
+</arguments>
+<assign>
+<var>${order_details}</var>
+</assign>
+<msg timestamp="20201005 09:30:36.389" level="INFO">${order_details} = {'timeStamp': 1601870622406, 'patient_id': '743a85b1-07eb-4be3-87e5-6775e61bda74', 'orderNumber': '19156', 'orderStatusExternalDescription': 'Web Refill in Progress', 'shipToFirstName': 'David', 'ship...</msg>
+<status status="PASS" starttime="20201005 09:30:36.388" endtime="20201005 09:30:36.389"></status>
+</kw>
+<kw name="Compare Dicts" library="HelperModule">
+<arguments>
+<arg>${order_details["prescriptions"][0]}</arg>
+<arg>${pres_details}</arg>
+<arg>False</arg>
+</arguments>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20201005 09:30:36.391" level="INFO">The expected dictionary is {'prescriptionNumber': '84828', 'drugNdc': '00002050101', 'drugDisplayName': 'NEBCIN PED 10 MG/ML VIAL                                    ', 'quantityWritten': '1.0', 'quantityRemaining': '1.0', 'doctorNpi': '5955', 'doctorName': 'MARK GROSSMAN', 'doctorAddress': '5767 W CENTURY BLVD STE 200 ', 'doctorCity': 'LOS ANGELES', 'doctorState': 'CA', 'doctorZip': '90045  ', 'doctorPhone': '8287172   ', 'prescriptionExpirationDate': 'Mon Sep 27 14:48:39 GMT 2021', 'prescriptionNextRefillDate': '', 'prescriptionLastFilledDate': '', 'dose': 1, 'instructions': 'DummySignText', 'id': 'c98ea127-0494-4934-a952-1c9f286b5632'} 
+</msg>
+<msg timestamp="20201005 09:30:36.391" level="INFO">The actual dictionary is {'prescriptionNumber': '84828', 'drugNdc': '00002050101', 'drugDisplayName': 'NEBCIN PED 10 MG/ML VIAL                                    ', 'quantityWritten': '1.0', 'quantityRemaining': '1.0', 'doctorNpi': '5955', 'doctorName': 'MARK GROSSMAN', 'doctorAddress': '5767 W CENTURY BLVD STE 200 ', 'doctorCity': 'LOS ANGELES', 'doctorState': 'CA', 'doctorZip': '90045  ', 'doctorPhone': '8287172   ', 'prescriptionExpirationDate': 'Mon Sep 27 14:48:39 GMT 2021', 'prescriptionNextRefillDate': '', 'prescriptionLastFilledDate': '', 'dose': 1, 'instructions': 'DummySignText', 'id': 'c98ea127-0494-4934-a952-1c9f286b5632'} 
+</msg>
+<msg timestamp="20201005 09:30:36.396" level="INFO">PASS: Both the expected and actual dictionaries are same.</msg>
+<msg timestamp="20201005 09:30:36.398" level="INFO">${status} = True</msg>
+<status status="PASS" starttime="20201005 09:30:36.390" endtime="20201005 09:30:36.398"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>${status}</arg>
+</arguments>
+<status status="PASS" starttime="20201005 09:30:36.398" endtime="20201005 09:30:36.399"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:36.387" endtime="20201005 09:30:36.399"></status>
+</kw>
+<kw name="Verify Shipment Amount">
+<arguments>
+<arg>${response}</arg>
+<arg>${input_data}</arg>
+</arguments>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json()</arg>
+</arguments>
+<assign>
+<var>${resource_details}</var>
+</assign>
+<msg timestamp="20201005 09:30:36.400" level="INFO">${resource_details} = {'timeStamp': 1601870622406, 'patient_id': '743a85b1-07eb-4be3-87e5-6775e61bda74', 'orderNumber': '19156', 'orderStatusExternalDescription': 'Web Refill in Progress', 'shipToFirstName': 'David', 'ship...</msg>
+<status status="PASS" starttime="20201005 09:30:36.400" endtime="20201005 09:30:36.400"></status>
+</kw>
+<kw name="Get Drug Price" library="api_resources_keywords">
+<arguments>
+<arg>${Base_URL}</arg>
+<arg>${drug["ndc_rxrequest"]}</arg>
+<arg>${site}</arg>
+</arguments>
+<assign>
+<var>${drug_price}</var>
+</assign>
+<kw name="Get Site Id" library="api_resources_keywords">
+<arguments>
+<arg>${Base_URL}</arg>
+<arg>${site_domain}</arg>
+</arguments>
+<assign>
+<var>${site_uuid}</var>
+</assign>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetSiteNoAuth</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:36.402" level="INFO">Creating Session using : alias=GetSiteNoAuth, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:36.402" endtime="20201005 09:30:36.402"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetSiteNoAuth</arg>
+<arg>/site?domainName=${site_domain}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:37.711" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/site?domainName=nebcin 
+ path_url=/api/v1.0/site?domainName=nebcin 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:37.712" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/site?domainName=nebcin 
+ status=200, reason= 
+ body={"domainName":"nebcin","tenantId":"4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93","siteId":"fc42acd9-0e74-45ab-9028-ae6c57c59c0a"} 
+ </msg>
+<msg timestamp="20201005 09:30:37.712" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:37.712" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:36.402" endtime="20201005 09:30:37.712"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:37.714" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:37.713" endtime="20201005 09:30:37.714"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:37.714" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:37.714" endtime="20201005 09:30:37.714"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:37.715" level="INFO">Response body is : {"domainName":"nebcin","tenantId":"4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93","siteId":"fc42acd9-0e74-45ab-9028-ae6c57c59c0a"}</msg>
+<status status="PASS" starttime="20201005 09:30:37.715" endtime="20201005 09:30:37.715"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:37.712" endtime="20201005 09:30:37.715"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json().get("siteId")</arg>
+</arguments>
+<assign>
+<var>${site_uuid}</var>
+</assign>
+<msg timestamp="20201005 09:30:37.716" level="INFO">${site_uuid} = fc42acd9-0e74-45ab-9028-ae6c57c59c0a</msg>
+<status status="PASS" starttime="20201005 09:30:37.715" endtime="20201005 09:30:37.716"></status>
+</kw>
+<kw name="Get Tenant Id" library="api_resources_keywords">
+<arguments>
+<arg>${Base_URL}</arg>
+<arg>${site_domain}</arg>
+</arguments>
+<assign>
+<var>${tenant_uuid}</var>
+</assign>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetTenantNoAuth</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:37.717" level="INFO">Creating Session using : alias=GetTenantNoAuth, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:37.717" endtime="20201005 09:30:37.717"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetTenantNoAuth</arg>
+<arg>/site?domainName=${site_domain}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:39.059" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/site?domainName=nebcin 
+ path_url=/api/v1.0/site?domainName=nebcin 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:39.060" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/site?domainName=nebcin 
+ status=200, reason= 
+ body={"domainName":"nebcin","tenantId":"4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93","siteId":"fc42acd9-0e74-45ab-9028-ae6c57c59c0a"} 
+ </msg>
+<msg timestamp="20201005 09:30:39.060" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:39.060" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:37.717" endtime="20201005 09:30:39.060"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:39.062" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:39.061" endtime="20201005 09:30:39.062"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:39.062" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:39.062" endtime="20201005 09:30:39.063"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:39.063" level="INFO">Response body is : {"domainName":"nebcin","tenantId":"4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93","siteId":"fc42acd9-0e74-45ab-9028-ae6c57c59c0a"}</msg>
+<status status="PASS" starttime="20201005 09:30:39.063" endtime="20201005 09:30:39.063"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:39.060" endtime="20201005 09:30:39.063"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json().get("tenantId")</arg>
+</arguments>
+<assign>
+<var>${tenant_uuid}</var>
+</assign>
+<msg timestamp="20201005 09:30:39.064" level="INFO">${tenant_uuid} = 4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93</msg>
+<status status="PASS" starttime="20201005 09:30:39.064" endtime="20201005 09:30:39.064"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${tenant_uuid}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:39.064" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:39.064" endtime="20201005 09:30:39.065"></status>
+</kw>
+<msg timestamp="20201005 09:30:39.065" level="INFO">${tenant_uuid} = 4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93</msg>
+<status status="PASS" starttime="20201005 09:30:37.716" endtime="20201005 09:30:39.065"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/tenant</arg>
+<arg>${tenant_uuid}</arg>
+<arg>site</arg>
+<arg>${site_uuid}</arg>
+</arguments>
+<assign>
+<var>${site_uri_no_auth}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:39.066" level="INFO">${uri} = /tenant/4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93/site/fc42acd9-0e74-45ab-9028-ae6c57c59c0a</msg>
+<status status="PASS" starttime="20201005 09:30:39.066" endtime="20201005 09:30:39.066"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:39.066" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:39.066" endtime="20201005 09:30:39.066"></status>
+</kw>
+<msg timestamp="20201005 09:30:39.067" level="INFO">${site_uri_no_auth} = /tenant/4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93/site/fc42acd9-0e74-45ab-9028-ae6c57c59c0a</msg>
+<status status="PASS" starttime="20201005 09:30:39.065" endtime="20201005 09:30:39.067"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetSiteDetailsNoAuth</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:39.067" level="INFO">Creating Session using : alias=GetSiteDetailsNoAuth, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:39.067" endtime="20201005 09:30:39.068"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetSiteDetailsNoAuth</arg>
+<arg>${site_uri_no_auth}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:41.396" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/tenant/4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93/site/fc42acd9-0e74-45ab-9028-ae6c57c59c0a 
+ path_url=/api/v1.0/tenant/4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93/site/fc42acd9-0e74-45ab-9028-ae6c57c59c0a 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:41.396" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/tenant/4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93/site/fc42acd9-0e74-45ab-9028-ae6c57c59c0a 
+ status=200, reason= 
+ body={"name":"NEBCIN","domain":"nebcin","grxPatTypeId":1,"enabled":true,"id":"fc42acd9-0e74-45ab-9028-ae6c57c59c0a","tenantUuid":"4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93","dateCreated":1600266551898,"dateModified":1600915159196,"termsAndConditions":"New Terms and Condition3"} 
+ </msg>
+<msg timestamp="20201005 09:30:41.396" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:41.397" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:39.068" endtime="20201005 09:30:41.397"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json()</arg>
+</arguments>
+<assign>
+<var>${site_details}</var>
+</assign>
+<msg timestamp="20201005 09:30:41.398" level="INFO">${site_details} = {'name': 'NEBCIN', 'domain': 'nebcin', 'grxPatTypeId': 1, 'enabled': True, 'id': 'fc42acd9-0e74-45ab-9028-ae6c57c59c0a', 'tenantUuid': '4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93', 'dateCreated': 1600266551...</msg>
+<status status="PASS" starttime="20201005 09:30:41.397" endtime="20201005 09:30:41.398"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${site_details['id']}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:41.398" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:41.398" endtime="20201005 09:30:41.398"></status>
+</kw>
+<msg timestamp="20201005 09:30:41.399" level="INFO">${site_uuid} = fc42acd9-0e74-45ab-9028-ae6c57c59c0a</msg>
+<status status="PASS" starttime="20201005 09:30:36.401" endtime="20201005 09:30:41.399"></status>
+</kw>
+<kw name="Get Tenant Id" library="api_resources_keywords">
+<arguments>
+<arg>${Base_URL}</arg>
+<arg>${site_domain}</arg>
+</arguments>
+<assign>
+<var>${tenant_uuid}</var>
+</assign>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetTenantNoAuth</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:41.400" level="INFO">Creating Session using : alias=GetTenantNoAuth, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:41.400" endtime="20201005 09:30:41.400"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetTenantNoAuth</arg>
+<arg>/site?domainName=${site_domain}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:42.522" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/site?domainName=nebcin 
+ path_url=/api/v1.0/site?domainName=nebcin 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:42.522" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/site?domainName=nebcin 
+ status=200, reason= 
+ body={"domainName":"nebcin","tenantId":"4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93","siteId":"fc42acd9-0e74-45ab-9028-ae6c57c59c0a"} 
+ </msg>
+<msg timestamp="20201005 09:30:42.523" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:42.523" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:41.401" endtime="20201005 09:30:42.523"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:42.524" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:42.523" endtime="20201005 09:30:42.524"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:42.524" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:42.524" endtime="20201005 09:30:42.524"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:42.525" level="INFO">Response body is : {"domainName":"nebcin","tenantId":"4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93","siteId":"fc42acd9-0e74-45ab-9028-ae6c57c59c0a"}</msg>
+<status status="PASS" starttime="20201005 09:30:42.525" endtime="20201005 09:30:42.525"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:42.523" endtime="20201005 09:30:42.525"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json().get("tenantId")</arg>
+</arguments>
+<assign>
+<var>${tenant_uuid}</var>
+</assign>
+<msg timestamp="20201005 09:30:42.526" level="INFO">${tenant_uuid} = 4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93</msg>
+<status status="PASS" starttime="20201005 09:30:42.525" endtime="20201005 09:30:42.526"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${tenant_uuid}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:42.526" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:42.526" endtime="20201005 09:30:42.526"></status>
+</kw>
+<msg timestamp="20201005 09:30:42.526" level="INFO">${tenant_uuid} = 4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93</msg>
+<status status="PASS" starttime="20201005 09:30:41.399" endtime="20201005 09:30:42.526"></status>
+</kw>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetDrugDetails</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:42.527" level="INFO">Creating Session using : alias=GetDrugDetails, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:42.526" endtime="20201005 09:30:42.527"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/tenant</arg>
+<arg>${tenant_uuid}</arg>
+<arg>site</arg>
+<arg>${site_uuid}</arg>
+<arg>drugs</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:42.528" level="INFO">${uri} = /tenant/4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93/site/fc42acd9-0e74-45ab-9028-ae6c57c59c0a/drugs</msg>
+<status status="PASS" starttime="20201005 09:30:42.527" endtime="20201005 09:30:42.528"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:42.528" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:42.528" endtime="20201005 09:30:42.528"></status>
+</kw>
+<msg timestamp="20201005 09:30:42.529" level="INFO">${uri} = /tenant/4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93/site/fc42acd9-0e74-45ab-9028-ae6c57c59c0a/drugs</msg>
+<status status="PASS" starttime="20201005 09:30:42.527" endtime="20201005 09:30:42.529"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetDrugDetails</arg>
+<arg>${uri}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:43.753" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/tenant/4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93/site/fc42acd9-0e74-45ab-9028-ae6c57c59c0a/drugs 
+ path_url=/api/v1.0/tenant/4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93/site/fc42acd9-0e74-45ab-9028-ae6c57c59c0a/drugs 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:43.753" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/tenant/4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93/site/fc42acd9-0e74-45ab-9028-ae6c57c59c0a/drugs 
+ status=200, reason= 
+ body=[{"id":"a90c7fe5-9160-4ca9-aa7a-c1abce9c3ef2","tenantId":"4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93","ndc":"00002050101","name":"NEBCIN","description":"PEDIATRIC","brandName":null,"imageUrl":null,"activeIngredient":"LYSINE","strength":"10 MG/ML","quantity":"1","price":10.0,"packForm":null,"packSize":"2","dateCreated":1600266341401,"dateModified":1600266341401,"labelerName":"NEBCIN PED 10 MG/ML VIAL","groupID":null,"gcn":null,"route":"ORAL","type":null,"linkedToSite":true,"termsAndConditions":null,"prescriberInformation":null,"active":true}] 
+ </msg>
+<msg timestamp="20201005 09:30:43.753" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:43.754" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:42.529" endtime="20201005 09:30:43.754"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:43.755" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:43.755" endtime="20201005 09:30:43.755"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:43.756" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:43.755" endtime="20201005 09:30:43.756"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:43.757" level="INFO">Response body is : [{"id":"a90c7fe5-9160-4ca9-aa7a-c1abce9c3ef2","tenantId":"4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93","ndc":"00002050101","name":"NEBCIN","description":"PEDIATRIC","brandName":null,"imageUrl":null,"activeIngredient":"LYSINE","strength":"10 MG/ML","quantity":"1","price":10.0,"packForm":null,"packSize":"2","dateCreated":1600266341401,"dateModified":1600266341401,"labelerName":"NEBCIN PED 10 MG/ML VIAL","groupID":null,"gcn":null,"route":"ORAL","type":null,"linkedToSite":true,"termsAndConditions":null,"prescriberInformation":null,"active":true}]</msg>
+<status status="PASS" starttime="20201005 09:30:43.756" endtime="20201005 09:30:43.757"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:43.754" endtime="20201005 09:30:43.757"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json()</arg>
+</arguments>
+<assign>
+<var>${response_list}</var>
+</assign>
+<msg timestamp="20201005 09:30:43.760" level="INFO">${response_list} = [{'id': 'a90c7fe5-9160-4ca9-aa7a-c1abce9c3ef2', 'tenantId': '4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93', 'ndc': '00002050101', 'name': 'NEBCIN', 'description': 'PEDIATRIC', 'brandName': None, 'imageUrl': N...</msg>
+<status status="PASS" starttime="20201005 09:30:43.757" endtime="20201005 09:30:43.760"></status>
+</kw>
+<kw name="Get Drug Price From Ndc" library="HelperModule">
+<doc>GEt Drug by entering drug NDC from list of drugs on a aite
+:param list_of_drug:
+:param drug_ndc:
+:return:</doc>
+<arguments>
+<arg>${response_list}</arg>
+<arg>${drug_ndc}</arg>
+</arguments>
+<assign>
+<var>${drug_details}</var>
+</assign>
+<msg timestamp="20201005 09:30:43.761" level="INFO">info: The following is the drugs lists : [{'id': 'a90c7fe5-9160-4ca9-aa7a-c1abce9c3ef2', 'tenantId': '4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93', 'ndc': '00002050101', 'name': 'NEBCIN', 'description': 'PEDIATRIC', 'brandName': None, 'imageUrl': None, 'activeIngredient': 'LYSINE', 'strength': '10 MG/ML', 'quantity': '1', 'price': 10.0, 'packForm': None, 'packSize': '2', 'dateCreated': 1600266341401, 'dateModified': 1600266341401, 'labelerName': 'NEBCIN PED 10 MG/ML VIAL', 'groupID': None, 'gcn': None, 'route': 'ORAL', 'type': None, 'linkedToSite': True, 'termsAndConditions': None, 'prescriberInformation': None, 'active': True}]</msg>
+<msg timestamp="20201005 09:30:43.761" level="INFO">${drug_details} = {'id': 'a90c7fe5-9160-4ca9-aa7a-c1abce9c3ef2', 'tenantId': '4bf7dba0-23a8-40ce-a7dd-4f5e757c6d93', 'ndc': '00002050101', 'name': 'NEBCIN', 'description': 'PEDIATRIC', 'brandName': None, 'imageUrl': No...</msg>
+<status status="PASS" starttime="20201005 09:30:43.761" endtime="20201005 09:30:43.761"></status>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<doc>Verifies that the given item is not empty.</doc>
+<arguments>
+<arg>${drug_details}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:43.762" level="INFO">Length is 24</msg>
+<status status="PASS" starttime="20201005 09:30:43.761" endtime="20201005 09:30:43.762"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${drug_details['price']}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:43.763" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:43.762" endtime="20201005 09:30:43.763"></status>
+</kw>
+<msg timestamp="20201005 09:30:43.763" level="INFO">${drug_price} = 10.0</msg>
+<status status="PASS" starttime="20201005 09:30:36.400" endtime="20201005 09:30:43.764"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${input_data["orderLine"][0]["qtyOrdered"]}</arg>
+</arguments>
+<assign>
+<var>${quantity_ordered}</var>
+</assign>
+<msg timestamp="20201005 09:30:43.765" level="INFO">${quantity_ordered} = 2</msg>
+<status status="PASS" starttime="20201005 09:30:43.764" endtime="20201005 09:30:43.766"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>${quantity_ordered}*${drug_price}</arg>
+</arguments>
+<assign>
+<var>${expected_shipAmount}</var>
+</assign>
+<msg timestamp="20201005 09:30:43.766" level="INFO">${expected_shipAmount} = 20.0</msg>
+<status status="PASS" starttime="20201005 09:30:43.766" endtime="20201005 09:30:43.766"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resource_details["shipAmount"]}</arg>
+<arg>${expected_shipAmount}</arg>
+</arguments>
+<status status="PASS" starttime="20201005 09:30:43.767" endtime="20201005 09:30:43.767"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:36.399" endtime="20201005 09:30:43.767"></status>
+</kw>
+<kw name="Get Resource ID" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<assign>
+<var>${order_id}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json()</arg>
+</arguments>
+<assign>
+<var>${resource_details}</var>
+</assign>
+<msg timestamp="20201005 09:30:43.768" level="INFO">${resource_details} = {'timeStamp': 1601870622406, 'patient_id': '743a85b1-07eb-4be3-87e5-6775e61bda74', 'orderNumber': '19156', 'orderStatusExternalDescription': 'Web Refill in Progress', 'shipToFirstName': 'David', 'ship...</msg>
+<status status="PASS" starttime="20201005 09:30:43.768" endtime="20201005 09:30:43.768"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resource_details["id"]}</arg>
+</arguments>
+<assign>
+<var>${resource_id}</var>
+</assign>
+<msg timestamp="20201005 09:30:43.769" level="INFO">${resource_id} = f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6</msg>
+<status status="PASS" starttime="20201005 09:30:43.768" endtime="20201005 09:30:43.769"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${resource_id}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:43.769" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:43.769" endtime="20201005 09:30:43.769"></status>
+</kw>
+<msg timestamp="20201005 09:30:43.769" level="INFO">${order_id} = f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6</msg>
+<status status="PASS" starttime="20201005 09:30:43.767" endtime="20201005 09:30:43.769"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${order_id}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:43.770" level="INFO">${order_id} = f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6</msg>
+<status status="PASS" starttime="20201005 09:30:43.770" endtime="20201005 09:30:43.770"></status>
+</kw>
+<tags>
+<tag>PatientOrder</tag>
+<tag>sanity</tag>
+</tags>
+<status status="PASS" starttime="20201005 09:30:33.931" endtime="20201005 09:30:43.770" critical="yes"></status>
+</test>
+<test id="s1-t5" name="TC_005 : [GET] Verify Order list exist for the Patient">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetOrder</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:43.771" level="INFO">Creating Session using : alias=GetOrder, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:43.771" endtime="20201005 09:30:43.771"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/patient</arg>
+<arg>${patient_uuid}</arg>
+<arg>orders</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:43.772" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/orders</msg>
+<status status="PASS" starttime="20201005 09:30:43.772" endtime="20201005 09:30:43.772"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:43.772" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:43.772" endtime="20201005 09:30:43.773"></status>
+</kw>
+<msg timestamp="20201005 09:30:43.773" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/orders</msg>
+<status status="PASS" starttime="20201005 09:30:43.772" endtime="20201005 09:30:43.773"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetOrder</arg>
+<arg>${uri}</arg>
+<arg>headers=${HEADER}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:44.878" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/orders 
+ path_url=/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/orders 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:44.879" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/orders 
+ status=200, reason= 
+ body={"timeStamp":1601870630931,"orderList":[{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19148","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"1901 West Madison Street","shipToAddress2":" ","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60612","orderDate":1601236680682,"expectedDeliveryDate":1601323080682,"paymentReceived":20.0,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"paymentStatus":"payment_successful","paymenTransactionNumber":"038-2222","shipAmount":20.0,"orderStatus":"Submitted","transactionId":"b78b042f-6063-4396-a878-81f8ec568973","orderStatusInternal":"SUBMITTED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"0f5d1373-995c-49ad-b609-6a1a4a9b0a23"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19154","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601843385451,"expectedDeliveryDate":1601929785451,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"shipAmount":20.0,"orderStatus":"Submitted","orderStatusInternal":"CREATED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"2c24d957-4c7d-4f04-92b9-c72c16b07a07"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19155","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601843788736,"expectedDeliveryDate":1601930188736,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"shipAmount":20.0,"orderStatusInternal":"CREATED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"595bc055-c9dc-45d1-bab3-732dca02e5f6"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19152","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"1901 West Madison Street","shipToAddress2":" ","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60612","orderDate":1601834265661,"expectedDeliveryDate":1601920665661,"paymentReceived":20.0,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"paymentStatus":"payment_successful","paymenTransactionNumber":"038-2222","shipAmount":20.0,"orderStatus":"Submitted","transactionId":"af4f426f-0d56-4449-881d-632936e8cc16","orderStatusInternal":"SUBMITTED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"83f15896-2246-4347-b82b-bac04867038e"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19153","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601843170027,"expectedDeliveryDate":1601929570027,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"shipAmount":20.0,"orderStatus":"Submitted","orderStatusInternal":"CREATED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"874612ba-e8a5-4564-8d3f-065d4dcb0a92"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19142","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"1901 West Madison Street","shipToAddress2":" ","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60612","orderDate":1600960330194,"expectedDeliveryDate":1601046730194,"paymentReceived":20.0,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c4d6ce9f-c8ac-4b6c-b0d5-623c9cfc7d71","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"paymentStatus":"payment_successful","paymenTransactionNumber":"038-2222","shipAmount":20.0,"orderStatus":"Submitted","transactionId":"e00bbbb2-6c12-4ca0-95b8-f4140f0c8083","orderStatusInternal":"SUBMITTED","prescriptions":[{"prescriptionNumber":"84826","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Thu Sep 24 15:28:17 GMT 2020","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c4d6ce9f-c8ac-4b6c-b0d5-623c9cfc7d71"}],"id":"b2d0dc6c-daf2-4c0d-a653-d32d416d38b4"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19156","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601870223484,"expectedDeliveryDate":1601956623484,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"shipAmount":20.0,"orderStatus":"Submitted","orderStatusInternal":"CREATED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6"}]} 
+ </msg>
+<msg timestamp="20201005 09:30:44.879" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:44.879" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:43.773" endtime="20201005 09:30:44.879"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:44.881" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:44.880" endtime="20201005 09:30:44.881"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:44.881" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:44.881" endtime="20201005 09:30:44.881"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:44.882" level="INFO">Response body is : {"timeStamp":1601870630931,"orderList":[{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19148","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"1901 West Madison Street","shipToAddress2":" ","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60612","orderDate":1601236680682,"expectedDeliveryDate":1601323080682,"paymentReceived":20.0,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"paymentStatus":"payment_successful","paymenTransactionNumber":"038-2222","shipAmount":20.0,"orderStatus":"Submitted","transactionId":"b78b042f-6063-4396-a878-81f8ec568973","orderStatusInternal":"SUBMITTED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"0f5d1373-995c-49ad-b609-6a1a4a9b0a23"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19154","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601843385451,"expectedDeliveryDate":1601929785451,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"shipAmount":20.0,"orderStatus":"Submitted","orderStatusInternal":"CREATED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"2c24d957-4c7d-4f04-92b9-c72c16b07a07"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19155","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601843788736,"expectedDeliveryDate":1601930188736,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"shipAmount":20.0,"orderStatusInternal":"CREATED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"595bc055-c9dc-45d1-bab3-732dca02e5f6"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19152","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"1901 West Madison Street","shipToAddress2":" ","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60612","orderDate":1601834265661,"expectedDeliveryDate":1601920665661,"paymentReceived":20.0,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"paymentStatus":"payment_successful","paymenTransactionNumber":"038-2222","shipAmount":20.0,"orderStatus":"Submitted","transactionId":"af4f426f-0d56-4449-881d-632936e8cc16","orderStatusInternal":"SUBMITTED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"83f15896-2246-4347-b82b-bac04867038e"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19153","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601843170027,"expectedDeliveryDate":1601929570027,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"shipAmount":20.0,"orderStatus":"Submitted","orderStatusInternal":"CREATED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"874612ba-e8a5-4564-8d3f-065d4dcb0a92"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19142","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"1901 West Madison Street","shipToAddress2":" ","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60612","orderDate":1600960330194,"expectedDeliveryDate":1601046730194,"paymentReceived":20.0,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c4d6ce9f-c8ac-4b6c-b0d5-623c9cfc7d71","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"paymentStatus":"payment_successful","paymenTransactionNumber":"038-2222","shipAmount":20.0,"orderStatus":"Submitted","transactionId":"e00bbbb2-6c12-4ca0-95b8-f4140f0c8083","orderStatusInternal":"SUBMITTED","prescriptions":[{"prescriptionNumber":"84826","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Thu Sep 24 15:28:17 GMT 2020","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c4d6ce9f-c8ac-4b6c-b0d5-623c9cfc7d71"}],"id":"b2d0dc6c-daf2-4c0d-a653-d32d416d38b4"},{"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19156","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601870223484,"expectedDeliveryDate":1601956623484,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"shipAmount":20.0,"orderStatus":"Submitted","orderStatusInternal":"CREATED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6"}]}</msg>
+<status status="PASS" starttime="20201005 09:30:44.881" endtime="20201005 09:30:44.882"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:44.880" endtime="20201005 09:30:44.882"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json().get("orderList")</arg>
+</arguments>
+<assign>
+<var>${order_list}</var>
+</assign>
+<msg timestamp="20201005 09:30:44.883" level="INFO">${order_list} = [{'patient_id': '743a85b1-07eb-4be3-87e5-6775e61bda74', 'orderNumber': '19148', 'orderStatusExternalDescription': 'Web Refill in Progress', 'shipToFirstName': 'David', 'shipToLastName': 'Finch', 'ship...</msg>
+<status status="PASS" starttime="20201005 09:30:44.883" endtime="20201005 09:30:44.883"></status>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<doc>Verifies that the given item is not empty.</doc>
+<arguments>
+<arg>${order_list}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:44.884" level="INFO">Length is 7</msg>
+<status status="PASS" starttime="20201005 09:30:44.884" endtime="20201005 09:30:44.884"></status>
+</kw>
+<tags>
+<tag>PatientOrder</tag>
+<tag>sanity</tag>
+</tags>
+<status status="PASS" starttime="20201005 09:30:43.770" endtime="20201005 09:30:44.884" critical="yes"></status>
+</test>
+<test id="s1-t6" name="TC_006 : [POST] Create a New Order Transaction for a Patient">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>NewOrderTrans</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:44.886" level="INFO">Creating Session using : alias=NewOrderTrans, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:44.885" endtime="20201005 09:30:44.886"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/patient</arg>
+<arg>${patient_uuid}</arg>
+<arg>order</arg>
+<arg>${order_id}</arg>
+<arg>transaction</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:44.890" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transaction</msg>
+<status status="PASS" starttime="20201005 09:30:44.890" endtime="20201005 09:30:44.890"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:44.891" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:44.890" endtime="20201005 09:30:44.891"></status>
+</kw>
+<msg timestamp="20201005 09:30:44.891" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transaction</msg>
+<status status="PASS" starttime="20201005 09:30:44.886" endtime="20201005 09:30:44.891"></status>
+</kw>
+<kw name="Add Valid CC Id">
+<arguments>
+<arg>order_transaction.json</arg>
+</arguments>
+<assign>
+<var>${input_data}</var>
+</assign>
+<kw name="Get Data from file" library="operations_keywords">
+<arguments>
+<arg>${json_path}${filename}</arg>
+</arguments>
+<assign>
+<var>${payload_object}</var>
+</assign>
+<kw name="Get File" library="OperatingSystem">
+<doc>Returns the contents of a specified file.</doc>
+<arguments>
+<arg>${filepath}</arg>
+</arguments>
+<assign>
+<var>${file_data}</var>
+</assign>
+<msg timestamp="20201005 09:30:44.892" level="INFO" html="yes">Getting file '&lt;a href="file:///Users/amit/PycharmProjects/Medic/test_data/order_transaction.json"&gt;/Users/amit/PycharmProjects/Medic/test_data/order_transaction.json&lt;/a&gt;'.</msg>
+<msg timestamp="20201005 09:30:44.894" level="INFO">${file_data} = {
+    "ccId": "63db9086-b31e-4824-bc48-e837875562c6",
+    "transType": "PRE_AUTH",
+    "transAmount": 20.0,
+    "transNumber": "038-2222",
+    "transStatus": "APPROVED",
+    "transDescription" : "this...</msg>
+<status status="PASS" starttime="20201005 09:30:44.892" endtime="20201005 09:30:44.894"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>json.loads('''${file_data}''')</arg>
+<arg>json</arg>
+</arguments>
+<assign>
+<var>${file_object}</var>
+</assign>
+<msg timestamp="20201005 09:30:44.895" level="INFO">${file_object} = {'ccId': '63db9086-b31e-4824-bc48-e837875562c6', 'transType': 'PRE_AUTH', 'transAmount': 20.0, 'transNumber': '038-2222', 'transStatus': 'APPROVED', 'transDescription': 'this is express method'}</msg>
+<status status="PASS" starttime="20201005 09:30:44.895" endtime="20201005 09:30:44.895"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${file_object}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:44.896" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:44.895" endtime="20201005 09:30:44.896"></status>
+</kw>
+<msg timestamp="20201005 09:30:44.896" level="INFO">${payload_object} = {'ccId': '63db9086-b31e-4824-bc48-e837875562c6', 'transType': 'PRE_AUTH', 'transAmount': 20.0, 'transNumber': '038-2222', 'transStatus': 'APPROVED', 'transDescription': 'this is express method'}</msg>
+<status status="PASS" starttime="20201005 09:30:44.892" endtime="20201005 09:30:44.896"></status>
+</kw>
+<kw name="Get Payment Card Id">
+<assign>
+<var>${cc_id}</var>
+</assign>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetcardId</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:44.897" level="INFO">Creating Session using : alias=GetcardId, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:44.897" endtime="20201005 09:30:44.898"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/patient</arg>
+<arg>${patient_uuid}</arg>
+<arg>cc</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:44.898" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/cc</msg>
+<status status="PASS" starttime="20201005 09:30:44.898" endtime="20201005 09:30:44.898"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:44.899" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:44.899" endtime="20201005 09:30:44.899"></status>
+</kw>
+<msg timestamp="20201005 09:30:44.899" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/cc</msg>
+<status status="PASS" starttime="20201005 09:30:44.898" endtime="20201005 09:30:44.899"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetcardId</arg>
+<arg>${uri}</arg>
+<arg>headers=${HEADER}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:46.207" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/cc 
+ path_url=/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/cc 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:46.208" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/cc 
+ status=200, reason= 
+ body=[{"ccName":"David Finch","id":"63db9086-b31e-4824-bc48-e837875562c6","ccLastFourDigit":"4111","ccExpiryDate":"03/21","ccType":"VISA","billingAddr":"Dallas, Texas","billingZip":"461111","billingId":"892837841","defaultCC":false,"oneTime":false},{"ccName":"David Finch","id":"bb7fe452-a5d6-4176-bd2f-8c028d07a25e","ccLastFourDigit":"4111","ccExpiryDate":"03/21","ccType":"AMERICAN_EXPRESS","billingAddr":"Dallas, Texas","billingZip":"461111","billingId":"892837843","defaultCC":false,"oneTime":false},{"ccName":"David Finch","id":"eba90394-c72a-4709-ae08-07d81ca363f8","ccLastFourDigit":"4112","ccExpiryDate":"03/22","ccType":"MASTER_CARD","billingAddr":"San Diego, California","billingZip":"461111","billingId":"892837842","defaultCC":false,"oneTime":false},{"ccName":"David Finch","id":"f2ebf8a0-2196-4ba5-a8a9-a99769961327","ccLastFourDigit":"4111","ccExpiryDate":"03/21","ccType":"DISCOVER","billingAddr":"Dallas, Texas","billingZip":"461111","billingId":"892837844","defaultCC":false,"oneTime":false}] 
+ </msg>
+<msg timestamp="20201005 09:30:46.208" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:46.208" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:44.899" endtime="20201005 09:30:46.208"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:46.210" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:46.209" endtime="20201005 09:30:46.210"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:46.210" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:46.210" endtime="20201005 09:30:46.210"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:46.211" level="INFO">Response body is : [{"ccName":"David Finch","id":"63db9086-b31e-4824-bc48-e837875562c6","ccLastFourDigit":"4111","ccExpiryDate":"03/21","ccType":"VISA","billingAddr":"Dallas, Texas","billingZip":"461111","billingId":"892837841","defaultCC":false,"oneTime":false},{"ccName":"David Finch","id":"bb7fe452-a5d6-4176-bd2f-8c028d07a25e","ccLastFourDigit":"4111","ccExpiryDate":"03/21","ccType":"AMERICAN_EXPRESS","billingAddr":"Dallas, Texas","billingZip":"461111","billingId":"892837843","defaultCC":false,"oneTime":false},{"ccName":"David Finch","id":"eba90394-c72a-4709-ae08-07d81ca363f8","ccLastFourDigit":"4112","ccExpiryDate":"03/22","ccType":"MASTER_CARD","billingAddr":"San Diego, California","billingZip":"461111","billingId":"892837842","defaultCC":false,"oneTime":false},{"ccName":"David Finch","id":"f2ebf8a0-2196-4ba5-a8a9-a99769961327","ccLastFourDigit":"4111","ccExpiryDate":"03/21","ccType":"DISCOVER","billingAddr":"Dallas, Texas","billingZip":"461111","billingId":"892837844","defaultCC":false,"oneTime":false}]</msg>
+<status status="PASS" starttime="20201005 09:30:46.211" endtime="20201005 09:30:46.211"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:46.209" endtime="20201005 09:30:46.211"></status>
+</kw>
+<kw name="Get First Resource ID from List" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<assign>
+<var>${cc_id}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$list_response.json()</arg>
+</arguments>
+<assign>
+<var>${resource_details}</var>
+</assign>
+<msg timestamp="20201005 09:30:46.212" level="INFO">${resource_details} = [{'ccName': 'David Finch', 'id': '63db9086-b31e-4824-bc48-e837875562c6', 'ccLastFourDigit': '4111', 'ccExpiryDate': '03/21', 'ccType': 'VISA', 'billingAddr': 'Dallas, Texas', 'billingZip': '461111', '...</msg>
+<status status="PASS" starttime="20201005 09:30:46.212" endtime="20201005 09:30:46.212"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resource_details[0]["id"]}</arg>
+</arguments>
+<assign>
+<var>${resource_id}</var>
+</assign>
+<msg timestamp="20201005 09:30:46.213" level="INFO">${resource_id} = 63db9086-b31e-4824-bc48-e837875562c6</msg>
+<status status="PASS" starttime="20201005 09:30:46.213" endtime="20201005 09:30:46.213"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${resource_id}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:46.213" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:46.213" endtime="20201005 09:30:46.213"></status>
+</kw>
+<msg timestamp="20201005 09:30:46.214" level="INFO">${cc_id} = 63db9086-b31e-4824-bc48-e837875562c6</msg>
+<status status="PASS" starttime="20201005 09:30:46.211" endtime="20201005 09:30:46.214"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${cc_id}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:46.214" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:46.214" endtime="20201005 09:30:46.214"></status>
+</kw>
+<msg timestamp="20201005 09:30:46.214" level="INFO">${cc_id} = 63db9086-b31e-4824-bc48-e837875562c6</msg>
+<status status="PASS" starttime="20201005 09:30:44.896" endtime="20201005 09:30:46.214"></status>
+</kw>
+<kw name="Set To Dictionary" library="Collections">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<arguments>
+<arg>${payload_object}</arg>
+<arg>ccId=${cc_id}</arg>
+</arguments>
+<status status="PASS" starttime="20201005 09:30:46.215" endtime="20201005 09:30:46.215"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${payload_object}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:46.215" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:46.215" endtime="20201005 09:30:46.215"></status>
+</kw>
+<msg timestamp="20201005 09:30:46.216" level="INFO">${input_data} = {'ccId': '63db9086-b31e-4824-bc48-e837875562c6', 'transType': 'PRE_AUTH', 'transAmount': 20.0, 'transNumber': '038-2222', 'transStatus': 'APPROVED', 'transDescription': 'this is express method'}</msg>
+<status status="PASS" starttime="20201005 09:30:44.891" endtime="20201005 09:30:46.216"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>NewOrderTrans</arg>
+<arg>${uri}</arg>
+<arg>data=${input_data}</arg>
+<arg>headers=${HEADER}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:47.495" level="INFO">POST Request : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transaction 
+ path_url=/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transaction 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json', 'Content-Length': '194'} 
+ body={"ccId": "63db9086-b31e-4824-bc48-e837875562c6", "transType": "PRE_AUTH", "transAmount": 20.0, "transNumber": "038-2222", "transStatus": "APPROVED", "transDescription": "this is express method"} 
+ </msg>
+<msg timestamp="20201005 09:30:47.496" level="INFO">POST Response : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transaction 
+ status=200, reason= 
+ body={"id":"c80d85d6-0779-4d0c-a3f2-18a865493452","orderId":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6","orderNumber":19156,"ccId":"63db9086-b31e-4824-bc48-e837875562c6","transType":"PRE_AUTH","transAmount":20.0,"transNumber":"038-2222","transStatus":"APPROVED","orderType":"REGULAR"} 
+ </msg>
+<msg timestamp="20201005 09:30:47.496" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:47.496" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:46.216" endtime="20201005 09:30:47.496"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:47.497" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:47.497" endtime="20201005 09:30:47.498"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:47.498" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:47.498" endtime="20201005 09:30:47.498"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:47.499" level="INFO">Response body is : {"id":"c80d85d6-0779-4d0c-a3f2-18a865493452","orderId":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6","orderNumber":19156,"ccId":"63db9086-b31e-4824-bc48-e837875562c6","transType":"PRE_AUTH","transAmount":20.0,"transNumber":"038-2222","transStatus":"APPROVED","orderType":"REGULAR"}</msg>
+<status status="PASS" starttime="20201005 09:30:47.498" endtime="20201005 09:30:47.499"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:47.496" endtime="20201005 09:30:47.499"></status>
+</kw>
+<kw name="Get Resource ID" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<assign>
+<var>${order_tran_id}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json()</arg>
+</arguments>
+<assign>
+<var>${resource_details}</var>
+</assign>
+<msg timestamp="20201005 09:30:47.500" level="INFO">${resource_details} = {'id': 'c80d85d6-0779-4d0c-a3f2-18a865493452', 'orderId': 'f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6', 'orderNumber': 19156, 'ccId': '63db9086-b31e-4824-bc48-e837875562c6', 'transType': 'PRE_AUTH', 'transA...</msg>
+<status status="PASS" starttime="20201005 09:30:47.500" endtime="20201005 09:30:47.500"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${resource_details["id"]}</arg>
+</arguments>
+<assign>
+<var>${resource_id}</var>
+</assign>
+<msg timestamp="20201005 09:30:47.501" level="INFO">${resource_id} = c80d85d6-0779-4d0c-a3f2-18a865493452</msg>
+<status status="PASS" starttime="20201005 09:30:47.500" endtime="20201005 09:30:47.501"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${resource_id}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:47.501" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:47.501" endtime="20201005 09:30:47.501"></status>
+</kw>
+<msg timestamp="20201005 09:30:47.501" level="INFO">${order_tran_id} = c80d85d6-0779-4d0c-a3f2-18a865493452</msg>
+<status status="PASS" starttime="20201005 09:30:47.499" endtime="20201005 09:30:47.501"></status>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<doc>Verifies that the given item is not empty.</doc>
+<arguments>
+<arg>${order_tran_id}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:47.502" level="INFO">Length is 36</msg>
+<status status="PASS" starttime="20201005 09:30:47.502" endtime="20201005 09:30:47.502"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${order_tran_id}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:47.503" level="INFO">${order_tran_id} = c80d85d6-0779-4d0c-a3f2-18a865493452</msg>
+<status status="PASS" starttime="20201005 09:30:47.502" endtime="20201005 09:30:47.503"></status>
+</kw>
+<tags>
+<tag>PatientOrder</tag>
+<tag>sanity</tag>
+</tags>
+<status status="PASS" starttime="20201005 09:30:44.885" endtime="20201005 09:30:47.503" critical="yes"></status>
+</test>
+<test id="s1-t7" name="TC_007 : [GET] Get Specific Order Transactions">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetOrderTrans</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:47.504" level="INFO">Creating Session using : alias=GetOrderTrans, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:47.504" endtime="20201005 09:30:47.504"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/patient</arg>
+<arg>${patient_uuid}</arg>
+<arg>order</arg>
+<arg>${order_id}</arg>
+<arg>transaction</arg>
+<arg>${order_tran_id}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:47.505" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transaction/c80d85d6-0779-4d0c-a3f2-18a865493452</msg>
+<status status="PASS" starttime="20201005 09:30:47.505" endtime="20201005 09:30:47.505"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:47.506" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:47.505" endtime="20201005 09:30:47.506"></status>
+</kw>
+<msg timestamp="20201005 09:30:47.506" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transaction/c80d85d6-0779-4d0c-a3f2-18a865493452</msg>
+<status status="PASS" starttime="20201005 09:30:47.505" endtime="20201005 09:30:47.506"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetOrderTrans</arg>
+<arg>${uri}</arg>
+<arg>headers=${HEADER}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:48.649" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transaction/c80d85d6-0779-4d0c-a3f2-18a865493452 
+ path_url=/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transaction/c80d85d6-0779-4d0c-a3f2-18a865493452 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:48.650" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transaction/c80d85d6-0779-4d0c-a3f2-18a865493452 
+ status=200, reason= 
+ body={"id":"c80d85d6-0779-4d0c-a3f2-18a865493452","orderId":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6","orderNumber":19156,"ccId":"63db9086-b31e-4824-bc48-e837875562c6","transType":"PRE_AUTH","transAmount":20.0,"transNumber":"038-2222","transStatus":"APPROVED","orderType":"REGULAR"} 
+ </msg>
+<msg timestamp="20201005 09:30:48.650" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:48.650" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:47.506" endtime="20201005 09:30:48.650"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:48.652" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:48.651" endtime="20201005 09:30:48.652"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:48.653" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:48.652" endtime="20201005 09:30:48.653"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:48.653" level="INFO">Response body is : {"id":"c80d85d6-0779-4d0c-a3f2-18a865493452","orderId":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6","orderNumber":19156,"ccId":"63db9086-b31e-4824-bc48-e837875562c6","transType":"PRE_AUTH","transAmount":20.0,"transNumber":"038-2222","transStatus":"APPROVED","orderType":"REGULAR"}</msg>
+<status status="PASS" starttime="20201005 09:30:48.653" endtime="20201005 09:30:48.653"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:48.650" endtime="20201005 09:30:48.653"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json()</arg>
+</arguments>
+<assign>
+<var>${trans_status}</var>
+</assign>
+<msg timestamp="20201005 09:30:48.654" level="INFO">${trans_status} = {'id': 'c80d85d6-0779-4d0c-a3f2-18a865493452', 'orderId': 'f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6', 'orderNumber': 19156, 'ccId': '63db9086-b31e-4824-bc48-e837875562c6', 'transType': 'PRE_AUTH', 'transA...</msg>
+<status status="PASS" starttime="20201005 09:30:48.654" endtime="20201005 09:30:48.654"></status>
+</kw>
+<tags>
+<tag>PatientOrder</tag>
+<tag>sanity</tag>
+</tags>
+<status status="PASS" starttime="20201005 09:30:47.503" endtime="20201005 09:30:48.654" critical="yes"></status>
+</test>
+<test id="s1-t8" name="TC_008 : [GET] Get All Order Transactions">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>GetAllOrderTransactions</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:48.656" level="INFO">Creating Session using : alias=GetAllOrderTransactions, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:48.655" endtime="20201005 09:30:48.656"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/patient</arg>
+<arg>${patient_uuid}</arg>
+<arg>order</arg>
+<arg>${order_id}</arg>
+<arg>transactions</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:48.657" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transactions</msg>
+<status status="PASS" starttime="20201005 09:30:48.657" endtime="20201005 09:30:48.657"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:48.658" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:48.657" endtime="20201005 09:30:48.658"></status>
+</kw>
+<msg timestamp="20201005 09:30:48.658" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transactions</msg>
+<status status="PASS" starttime="20201005 09:30:48.656" endtime="20201005 09:30:48.658"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>GetAllOrderTransactions</arg>
+<arg>${uri}</arg>
+<arg>headers=${HEADER}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:50.009" level="INFO">GET Request : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transactions 
+ path_url=/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transactions 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json'} 
+ body=None 
+ </msg>
+<msg timestamp="20201005 09:30:50.009" level="INFO">GET Response : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/transactions 
+ status=200, reason= 
+ body=[{"id":"c80d85d6-0779-4d0c-a3f2-18a865493452","orderId":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6","orderNumber":19156,"ccId":"63db9086-b31e-4824-bc48-e837875562c6","transType":"PRE_AUTH","transAmount":20.0,"transNumber":"038-2222","transStatus":"APPROVED","orderType":"REGULAR"}] 
+ </msg>
+<msg timestamp="20201005 09:30:50.010" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:50.010" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:48.658" endtime="20201005 09:30:50.010"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:50.011" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:50.011" endtime="20201005 09:30:50.011"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:50.012" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:50.012" endtime="20201005 09:30:50.012"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:50.013" level="INFO">Response body is : [{"id":"c80d85d6-0779-4d0c-a3f2-18a865493452","orderId":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6","orderNumber":19156,"ccId":"63db9086-b31e-4824-bc48-e837875562c6","transType":"PRE_AUTH","transAmount":20.0,"transNumber":"038-2222","transStatus":"APPROVED","orderType":"REGULAR"}]</msg>
+<status status="PASS" starttime="20201005 09:30:50.012" endtime="20201005 09:30:50.013"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:50.010" endtime="20201005 09:30:50.013"></status>
+</kw>
+<kw name="Verify the Response is a List" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>$response.json()</arg>
+</arguments>
+<assign>
+<var>${response_list}</var>
+</assign>
+<msg timestamp="20201005 09:30:50.014" level="INFO">${response_list} = [{'id': 'c80d85d6-0779-4d0c-a3f2-18a865493452', 'orderId': 'f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6', 'orderNumber': 19156, 'ccId': '63db9086-b31e-4824-bc48-e837875562c6', 'transType': 'PRE_AUTH', 'trans...</msg>
+<status status="PASS" starttime="20201005 09:30:50.014" endtime="20201005 09:30:50.014"></status>
+</kw>
+<kw name="Check Response Type" library="HelperModule">
+<doc>Check input data's type</doc>
+<arguments>
+<arg>${response_list}</arg>
+<arg>list</arg>
+</arguments>
+<assign>
+<var>${status}</var>
+</assign>
+<msg timestamp="20201005 09:30:50.015" level="INFO">${status} = True</msg>
+<status status="PASS" starttime="20201005 09:30:50.014" endtime="20201005 09:30:50.015"></status>
+</kw>
+<kw name="Should Be True" library="BuiltIn">
+<doc>Fails if the given condition is not true.</doc>
+<arguments>
+<arg>${status}</arg>
+</arguments>
+<status status="PASS" starttime="20201005 09:30:50.015" endtime="20201005 09:30:50.015"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:50.013" endtime="20201005 09:30:50.015"></status>
+</kw>
+<tags>
+<tag>PatientOrder</tag>
+<tag>sanity</tag>
+</tags>
+<status status="PASS" starttime="20201005 09:30:48.655" endtime="20201005 09:30:50.016" critical="yes"></status>
+</test>
+<test id="s1-t9" name="TC_009 : [POST] Submit a New Order for a Patient">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>NewOrderSubmit</arg>
+<arg>${Base_URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:50.017" level="INFO">Creating Session using : alias=NewOrderSubmit, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:50.017" endtime="20201005 09:30:50.017"></status>
+</kw>
+<kw name="Compose URL" library="operations_keywords">
+<arguments>
+<arg>/patient</arg>
+<arg>${patient_uuid}</arg>
+<arg>order</arg>
+<arg>${order_id}</arg>
+<arg>submit</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<kw name="Catenate" library="BuiltIn">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=/</arg>
+<arg>@{args}</arg>
+</arguments>
+<assign>
+<var>${uri}</var>
+</assign>
+<msg timestamp="20201005 09:30:50.019" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/submit</msg>
+<status status="PASS" starttime="20201005 09:30:50.018" endtime="20201005 09:30:50.019"></status>
+</kw>
+<kw name="Return From Keyword" library="BuiltIn">
+<doc>Returns from the enclosing user keyword.</doc>
+<arguments>
+<arg>${uri}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:50.019" level="INFO">Returning from the enclosing user keyword.</msg>
+<status status="PASS" starttime="20201005 09:30:50.019" endtime="20201005 09:30:50.019"></status>
+</kw>
+<msg timestamp="20201005 09:30:50.019" level="INFO">${uri} = /patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/submit</msg>
+<status status="PASS" starttime="20201005 09:30:50.017" endtime="20201005 09:30:50.019"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>transUuid</arg>
+<arg>${order_tran_id}</arg>
+</arguments>
+<assign>
+<var>${input_data}</var>
+</assign>
+<msg timestamp="20201005 09:30:50.020" level="INFO">${input_data} = {'transUuid': 'c80d85d6-0779-4d0c-a3f2-18a865493452'}</msg>
+<status status="PASS" starttime="20201005 09:30:50.019" endtime="20201005 09:30:50.020"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>NewOrderSubmit</arg>
+<arg>${uri}</arg>
+<arg>data=${input_data}</arg>
+<arg>headers=${HEADER}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:53.274" level="INFO">POST Request : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/submit 
+ path_url=/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/submit 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json', 'Content-Length': '53'} 
+ body={"transUuid": "c80d85d6-0779-4d0c-a3f2-18a865493452"} 
+ </msg>
+<msg timestamp="20201005 09:30:53.274" level="INFO">POST Response : url=https://api-dev.medvantxos.com/api/v1.0/patient/743a85b1-07eb-4be3-87e5-6775e61bda74/order/f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6/submit 
+ status=200, reason= 
+ body={"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19156","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601870223484,"expectedDeliveryDate":1601956623484,"paymentReceived":20.0,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"paymentStatus":"payment_successful","paymenTransactionNumber":"038-2222","shipAmount":20.0,"orderStatus":"Submitted","transactionId":"c80d85d6-0779-4d0c-a3f2-18a865493452","orderStatusInternal":"SUBMITTED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6"} 
+ </msg>
+<msg timestamp="20201005 09:30:53.274" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:53.274" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:50.020" endtime="20201005 09:30:53.275"></status>
+</kw>
+<kw name="Verify the Response" library="operations_keywords">
+<arguments>
+<arg>${response}</arg>
+<arg>200</arg>
+</arguments>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response code is : ${response.status_code}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:53.276" level="INFO">Response code is : 200</msg>
+<status status="PASS" starttime="20201005 09:30:53.276" endtime="20201005 09:30:53.276"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>${resp_status}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:53.277" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:53.276" endtime="20201005 09:30:53.277"></status>
+</kw>
+<kw name="Log" library="BuiltIn">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Response body is : ${response.text}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:53.277" level="INFO">Response body is : {"patient_id":"743a85b1-07eb-4be3-87e5-6775e61bda74","orderNumber":"19156","orderStatusExternalDescription":"Web Refill in Progress","shipToFirstName":"David","shipToLastName":"Finch","shipToAddress":"19 E Ohio St","shipToAddress2":"Freehand Chicago","shipToCity":"Chicago","shipToStateCode":"IL","shipToZipCode":"60611","orderDate":1601870223484,"expectedDeliveryDate":1601956623484,"paymentReceived":20.0,"setQuotedShippingPrice":0.0,"orderLine":[{"prescriptionId":"c98ea127-0494-4934-a952-1c9f286b5632","qtyOrdered":2,"shippingMethodId":"04ad4aa5-bfa8-490d-b849-d0ce607bddfa"}],"paymentStatus":"payment_successful","paymenTransactionNumber":"038-2222","shipAmount":20.0,"orderStatus":"Submitted","transactionId":"c80d85d6-0779-4d0c-a3f2-18a865493452","orderStatusInternal":"SUBMITTED","prescriptions":[{"prescriptionNumber":"84828","drugNdc":"00002050101","drugDisplayName":"NEBCIN PED 10 MG/ML VIAL                                    ","quantityWritten":"1.0","quantityRemaining":"1.0","doctorNpi":"5955","doctorName":"MARK GROSSMAN","doctorAddress":"5767 W CENTURY BLVD STE 200 ","doctorCity":"LOS ANGELES","doctorState":"CA","doctorZip":"90045  ","doctorPhone":"8287172   ","prescriptionExpirationDate":"Mon Sep 27 14:48:39 GMT 2021","prescriptionNextRefillDate":"","prescriptionLastFilledDate":"","dose":1,"instructions":"DummySignText","id":"c98ea127-0494-4934-a952-1c9f286b5632"}],"id":"f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6"}</msg>
+<status status="PASS" starttime="20201005 09:30:53.277" endtime="20201005 09:30:53.277"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:53.275" endtime="20201005 09:30:53.277"></status>
+</kw>
+<kw name="Verify Precription Details in Order">
+<arguments>
+<arg>${response}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:53.278" level="FAIL">Keyword 'Verify Precription Details in Order' expected 2 arguments, got 1.</msg>
+<status status="FAIL" starttime="20201005 09:30:53.278" endtime="20201005 09:30:53.278"></status>
+</kw>
+<tags>
+<tag>PatientOrder</tag>
+<tag>sanity</tag>
+</tags>
+<status status="FAIL" starttime="20201005 09:30:50.016" endtime="20201005 09:30:53.278" critical="yes">Keyword 'Verify Precription Details in Order' expected 2 arguments, got 1.</status>
+</test>
+<kw name="User Should be able to Signout" library="session_keywords" type="teardown">
+<arguments>
+<arg>${Base_URL}</arg>
+<arg>${HEADER}</arg>
+</arguments>
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>UserSignout</arg>
+<arg>${URL}</arg>
+</arguments>
+<msg timestamp="20201005 09:30:53.281" level="INFO">Creating Session using : alias=UserSignout, url=https://api-dev.medvantxos.com/api/v1.0, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20201005 09:30:53.280" endtime="20201005 09:30:53.281"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>refresh_token=${refreshToken}</arg>
+</arguments>
+<assign>
+<var>${body}</var>
+</assign>
+<msg timestamp="20201005 09:30:53.282" level="INFO">${body} = {'refresh_token': 'eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3N2Q1YjBhYy0wMDAzLTRjZTYtYjY0My01ZTAxZGU2MWEzZmYifQ.eyJleHAiOjE2MDE4NzI0MTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiMzM0MTY5YWEtY2M3ZS00Nj...</msg>
+<status status="PASS" starttime="20201005 09:30:53.281" endtime="20201005 09:30:53.282"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>UserSignout</arg>
+<arg>/signout</arg>
+<arg>data=${body}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20201005 09:30:54.510" level="INFO">POST Request : url=https://api-dev.medvantxos.com/api/v1.0/signout 
+ path_url=/api/v1.0/signout 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJQcU83QXJPVXBDeHB4WjVEcl9palFFX2pMZk55Q1ZYeHlXbVlTWnptcHQ4In0.eyJleHAiOjE2MDE4NzQyMTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiM2ZlMTg5OGEtYmIwZi00NjQ2LTkyZTAtM2FmYTcwMDQyODQ0IiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJhZG1pbi1jbGkiLCJzZXNzaW9uX3N0YXRlIjoiZDE4ZmE4YjYtYTM3Yi00MTE0LWEwOTQtMTA3ZGNhYTRkYWNlIiwiYWNyIjoiMSIsInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRGF2aWQgRmluY2giLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJtYXJrbG91czY0M0BnbWFpbC5jb20iLCJnaXZlbl9uYW1lIjoiRGF2aWQiLCJmYW1pbHlfbmFtZSI6IkZpbmNoIiwiZW1haWwiOiJtYXJrbG91czY0M0BnbWFpbC5jb20ifQ.TyRrKwftfyR2XopSfe5Q933hE8G_iPaYtjcp6vy8L6iJrQ20OK9M6LXUCR5IWOQ0BzctA_ALcxmJLz5S9_5h0nn1OQOJPWZdRS-OBJLUoE31ObOWTNJVRPghfgsiBwAmQxlYNkz6G6uQZK_0MUAxBJXB7ChVK98j5n8xWiR9yOmlsbxB9Za8FrPC_USh0OKrHp27jB4xXHIM1LXZJi5x3xnS1cziJQicoCWmer_1cm_VE5jzXNNJdJOboyVHtpGoMoKqSciJZmqkuqOrb4D2UxxaIYre5CCqFLW-_9GQen68NcJdbOD-_o-UUB_yAefYn5teE1jH4nIjU7AYeFEuVg', 'Content-Type': 'application/json', 'Content-Length': '616'} 
+ body={"refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI3N2Q1YjBhYy0wMDAzLTRjZTYtYjY0My01ZTAxZGU2MWEzZmYifQ.eyJleHAiOjE2MDE4NzI0MTQsImlhdCI6MTYwMTg3MDYxNCwianRpIjoiMzM0MTY5YWEtY2M3ZS00NjhlLTliODgtMGRmNzg4NTkxMmIwIiwiaXNzIjoiaHR0cDovL2tleWNsb2FrLXN2Yy9hdXRoL3JlYWxtcy9tZWR2YW50eCIsImF1ZCI6Imh0dHA6Ly9rZXljbG9hay1zdmMvYXV0aC9yZWFsbXMvbWVkdmFudHgiLCJzdWIiOiI3NDNhODViMS0wN2ViLTRiZTMtODdlNS02Nzc1ZTYxYmRhNzQiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoiYWRtaW4tY2xpIiwic2Vzc2lvbl9zdGF0ZSI6ImQxOGZhOGI2LWEzN2ItNDExNC1hMDk0LTEwN2RjYWE0ZGFjZSIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCJ9.qPaBbhoYH2y2GH9OX81exL3MxmGFRcfwQrC8VWINpc4"} 
+ </msg>
+<msg timestamp="20201005 09:30:54.512" level="INFO">POST Response : url=https://api-dev.medvantxos.com/api/v1.0/signout 
+ status=200, reason= 
+ body={"message":"User logged out","id":null} 
+ </msg>
+<msg timestamp="20201005 09:30:54.512" level="INFO">/Users/amit/PycharmProjects/Medic/venv/lib/python3.7/site-packages/urllib3/connectionpool.py:988: InsecureRequestWarning: Unverified HTTPS request is being made to host 'api-dev.medvantxos.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#ssl-warnings
+  InsecureRequestWarning,</msg>
+<msg timestamp="20201005 09:30:54.512" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:53.282" endtime="20201005 09:30:54.513"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20201005 09:30:54.513" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" starttime="20201005 09:30:54.513" endtime="20201005 09:30:54.513"></status>
+</kw>
+<status status="PASS" starttime="20201005 09:30:53.280" endtime="20201005 09:30:54.514"></status>
+</kw>
+<doc>Patient Order Workflow This suite contains tescases to verify patient order workflow</doc>
+<status status="FAIL" starttime="20201005 09:30:26.471" endtime="20201005 09:30:54.514"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="8" fail="1">Critical Tests</stat>
+<stat pass="8" fail="1">All Tests</stat>
+</total>
+<tag>
+<stat pass="8" fail="1">PatientOrder</stat>
+<stat pass="8" fail="1">sanity</stat>
+</tag>
+<suite>
+<stat pass="8" fail="1" id="s1" name="Order TestSuite">Order TestSuite</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

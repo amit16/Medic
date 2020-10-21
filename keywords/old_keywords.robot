@@ -10,6 +10,7 @@ Variables        ../Resources/config.yaml
 
 *** Keywords ***
 Patient Should be able to Signin
+    [Arguments]    ${credentials}
     create session  GetToken  ${Base_URL}
     ${body} =  create dictionary  username=${USER}  password=${PASSWORD}
     ${headers} =  create dictionary   Content-Type=application/json

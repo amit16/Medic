@@ -1,40 +1,82 @@
 *** Settings ***
 Documentation    Patient Order Workflow    This suite contains tescases to verify patient order workflow
-Resource         ../../Resources/common_keywords.robot
-Suite Setup      Patient Should be able to Signin
+Resource         ../../keywords/all_keywords.robot
+Variables        ../../keywords/config.yaml
+
+Suite Setup      Patient Signin and Set Patient UUID
+Suite Teardown   User Should be able to Signout   ${Base_URL}  ${HEADER}
 Force Tags       PatientOrder
 
 *** Keywords ***
+Patient Signin and Set Patient UUID
+    ${patient_credentials}=  get from dictionary  ${credentials}  patient
+    ${Base_URL}=   get from dictionary  ${base}  url
+    ${HEADER}=  User Should be able to Signin  ${Base_URL}  ${patient_credentials}
+    set suite variable  ${HEADER}  ${HEADER}
+    set suite variable  ${Base_URL}  ${Base_URL}
+    create session  GetPatient  ${Base_URL}
+    ${response} =  get request  GetPatient  /profile  headers=${HEADER}
+    Verify the Response  ${response}  200
+    ${patient_uuid} =    evaluate    $response.json().get("id")
+    set suite variable  ${patient_uuid}  ${patient_uuid}
+
+Get Patient details
+    [Arguments]    ${patient_uuid}
+    create session  GetPatientDetail  ${Base_URL}
+    ${uri} =  Compose URL  /patient  ${patient_uuid}
+    ${response} =  get request  GetPatientDetail  ${uri}  headers=${HEADER}
+    ${input_data}=  Get Data from file  ${json_path}patient_details.json
+    Verify the Response  ${response}  200
+    return from keyword  ${response.json()}
+
 Build Request Paylod for Order
     [Arguments]    ${filename}
-    ${file_data} =  Get File  ${json_path}${filename}
-    ${payload_object}=  Evaluate  json.loads('''${file_data}''')   json
+    ${payload_object} =  Get Data from file  ${json_path}${filename}
     ${orderLine}=  create list
     ${orderLine_item}=  create dictionary  prescriptionId  ${prescription_id}  shippingMethodId  ${shipping_id}  qtyOrdered  ${2}
     append to list  ${orderLine}  ${orderLine_item}
     set to dictionary  ${payload_object}  orderLine=${orderLine}
-    return from keyword  ${payload_object}
-
-Verify Precription Details in Order
-    [Arguments]    ${response}
-    ${order_details}=    evaluate    $response.json()
-    ${status}=  compare dicts  ${order_details["prescriptions"][0]}  ${file_prescription}  False
-    should be true  ${status}
+    ${patient_details}=  Get Patient details  ${patient_uuid}
+    ${payload}=  Update Patient Address  ${patient_details}  ${payload_object}
+    return from keyword  ${payload}
 
 Get Prescription ID By Drug NDC
     [Arguments]    ${prescription_list_response}
-    FOR  ${file_prescription}  IN   @{prescription_list_response.json()}
-    run keyword if   '${file_prescription['drugNdc']}'=='${drug_ndc_rxrequest}' and '${file_prescription['prescriptionExpirationDate']}'=='Mon Sep 27 14:48:39 GMT 2021'  Exit For Loop
-    END
-    set suite variable  ${file_prescription}
-    ${pres_id}=  evaluate  ${file_prescription}.get("id")
-    return from keyword  ${pres_id}
+    ${prescription_list}=  set variable   @{prescription_list_response.json()}
+    ${pres_details}=  get prescription from list  ${prescription_list}  ${drug["ndc_rxrequest"]}  valid
+    set suite variable  ${pres_details}
+    return from keyword  ${pres_details["id"]}
+
+Verify Precription Details in Order
+    [Arguments]    ${response}   ${pres_input_data}
+    ${order_details}=    evaluate    $response.json()
+    ${status}=  compare dicts  ${order_details["prescriptions"][0]}  ${pres_details}  False
+    should be true  ${status}
 
 Verify Shipment Amount
-    [Arguments]    ${response}
+    [Arguments]    ${response}   ${input_data}
     ${resource_details}=    evaluate    $response.json()
-    ${calculated_shipAmount} =    set variable    ${20.0}
-    should be equal  ${resource_details["shipAmount"]}  ${calculated_shipAmount}
+    ${drug_price}=  Get Drug Price   ${Base_URL}   ${drug["ndc_rxrequest"]}   ${site}
+    ${quantity_ordered}=  set variable  ${input_data["orderLine"][0]["qtyOrdered"]}
+    ${expected_shipAmount}=  Evaluate  ${quantity_ordered}*${drug_price}
+    set suite variable  ${expected_shipAmount}  ${expected_shipAmount}
+    should be equal  ${resource_details["shipAmount"]}  ${expected_shipAmount}
+
+Get Payment Card Id
+    create session  GetcardId  ${Base_URL}
+    ${uri} =  Compose URL  /patient  ${patient_uuid}  cc
+    ${response} =  get request  GetcardId  ${uri}  headers=${HEADER}
+    Verify the Response  ${response}  200
+    ${cc_id}=  Get First Resource ID from List  ${response}
+    return from keyword  ${cc_id}
+
+Add Valid CC Id and Drug Price
+    [Arguments]    ${filename}
+    ${payload_object} =  Get Data from file  ${json_path}${filename}
+    ${cc_id}=  Get Payment Card Id
+    set to dictionary  ${payload_object}  ccId=${cc_id}
+    set to dictionary  ${payload_object}  transAmount=${expected_shipAmount}
+    return from keyword  ${payload_object}
 
 *** Test Cases ***
 TC_001 : [GET] Verify Prescription list exist for the Patient
@@ -67,12 +109,14 @@ TC_003 : [GET] Verify Shipping Id list exist(No Auth)
 TC_004 : [POST] Create a New Order for a Patient
     [Tags]  sanity
     create session  NewOrder  ${Base_URL}
-    ${uri} =  Compose URL  /patient  ${patient_uuid}  order
+    #${uri} =  Compose URL  /patient  ${patient_uuid}  order
+    ${uri} =  Compose URL  /patient  ${patient_uuid}  order  f0ea2533-b599-4fc8-b303-f3ca0e4f8ae6
     ${input_data}=  Build Request Paylod for Order  create_order.json
-    ${response} =  post request  NewOrder  ${uri}  data=${input_data}   headers=${HEADER}
+    #${response} =  post request  NewOrder  ${uri}  data=${input_data}   headers=${HEADER}
+    ${response} =  get request  NewOrder  ${uri}  headers=${HEADER}
     Verify the Response  ${response}  200
-    Verify Precription Details in Order  ${response}
-    Verify Shipment Amount  ${response}
+    Verify Precription Details in Order  ${response}   ${input_data}
+    Verify Shipment Amount  ${response}  ${input_data}
     ${order_id}=  Get Resource ID    ${response}
     set suite variable  ${order_id}
 
@@ -89,7 +133,7 @@ TC_006 : [POST] Create a New Order Transaction for a Patient
     [Tags]  sanity
     create session  NewOrderTrans  ${Base_URL}
     ${uri} =  Compose URL  /patient  ${patient_uuid}  order  ${order_id}  transaction
-    ${input_data}=  Add Valid CC Id  order_transaction.json
+    ${input_data}=  Add Valid CC Id and Drug Price  order_transaction.json
     ${response} =  post request  NewOrderTrans  ${uri}  data=${input_data}   headers=${HEADER}
     Verify the Response  ${response}  200
     ${order_tran_id}=  Get Resource ID    ${response}
@@ -119,12 +163,9 @@ TC_009 : [POST] Submit a New Order for a Patient
     ${input_data} =  create dictionary  transUuid  ${order_tran_id}
     ${response} =  post request  NewOrderSubmit  ${uri}  data=${input_data}   headers=${HEADER}
     Verify the Response  ${response}  200
-    Verify Precription Details in Order  ${response}
-    Verify Shipment Amount  ${response}
+    Verify Shipment Amount  ${response}  ${input_data}
     ${order_sucess}=    evaluate    $response.json()
     should be equal as strings  ${order_sucess["paymentStatus"]}  payment_successful
-
-
 
 
 

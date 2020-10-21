@@ -57,11 +57,13 @@ def dictionary_search(key_to_search, dictionary):
         return data
 
 
-def compare_dicts(expected_d, actual_d, ignore_key='id', count=False):
+def compare_dicts(expected_d, actual_d, ignore_key=['id'], count=False):
     logger.info('The expected dictionary is {} \n'.format(expected_d))
     logger.info('The actual dictionary is {} \n'.format(actual_d))
-    if ignore_key in actual_d:
-        actual_d.pop(ignore_key)
+    for key in ignore_key:
+        if key in actual_d:
+            actual_d.pop(key)
+            expected_d.pop(key)
     result_flag = True
     result_diff = DeepDiff(expected_d, actual_d, ignore_order=True, report_repetition=True)
     if not result_diff:

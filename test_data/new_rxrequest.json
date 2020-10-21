@@ -1,17 +1,17 @@
 {
-    "mdId": "09108260-dd2a-4ac2-922c-6f55f6ffa3fe",
-    "shipToFirstName": "christian",
-    "shipToLastName": "bale",
-    "methodOfShipment": "EXPRESS",
-    "shipToAddress": "Unit 308",
-    "shipToAddress2": "390 elan village lane",
-    "shipToCity": "san jose",
-    "shipToStateCode": "CA",
-    "shipToZipCode": "95314",
+    "mdNpi": "1457370736",
+    "shipToFirstName": "David",
+    "shipToLastName": "Finch",
+    "shipToAddress": "1901 West Madison Street",
+    "shipToAddress2": " ",
+    "shipToCity": "Chicago",
+    "shipToStateCode": "IL",
+    "shipToZipCode": "60612",
     "requestedDrugs": [
         {
-            "ndc": "62541020230",
-            "quantity": 2
+            "shippingMethodId": "04ad4aa5-bfa8-490d-b849-d0ce607bddfa",
+            "ndc": "00002050101",
+            "quantity": "1"
         }
     ]
 }

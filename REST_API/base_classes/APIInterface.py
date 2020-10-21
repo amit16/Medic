@@ -97,7 +97,22 @@ class APIInterface(RestApi):
         except ValueError:
             return None
 
-    def get_request(self):
+    def get_id(self):
+        """ Gets the id from the last REST API call
+            Only for dict responses
+        Args:
+           None
+        Returns:
+           content: Returns the content for the last REST call
+                    (response.json())
+        """
+        try:
+            resource_id = self.api_response.get('json_response')['id']
+            return resource_id
+        except ValueError:
+            return None
+
+    def get_request_data(self):
         """ Gets the request of the last REST API call
         Args:
            None
@@ -106,7 +121,7 @@ class APIInterface(RestApi):
                     (request.json())
         """
         try:
-            return self.api_obj.get_request()
+            return self.api_obj.get_request()["data"]
         except ValueError:
             return None
 
