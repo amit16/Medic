@@ -1,21 +1,21 @@
 base:
-  api_url: https://api-dev.medvantxos.com
+  api_url: https://<api_url>
 
-site: nebcin
-tenant: medvantx
+site: site1
+tenant: tenant1
 
 credentials:
   patient:
-    username : marklous643@gmail.com
-    password : Test@123!
+    username : <user1>
+    password : <password1>
 
   tenant_admin:
-    username: tenant_admin@pfizer.com
-    password: Test@1234!
+    username: <tenant_admin1>
+    password: <password1>
 
   superuser:
-    username: default-superuser@medvantx.com
-    password: devAdminEw11o##@
+    username: <superuser>
+    password: <superpassword>
 
 drug:
   ndc : '00023361606'
